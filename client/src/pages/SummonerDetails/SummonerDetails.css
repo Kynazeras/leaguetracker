@@ -1,0 +1,30 @@
+.SummonerDetails {
+  height: 100vh;
+  width: 9 0%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.SummonerDetails header {
+  height: 15%;
+  display: flex;
+  align-items: center;
+}
+
+.SummonerDetails .container {
+  height: 80%;
+  display: grid;
+  grid-template-columns: 312px 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". .";
+}
+
+.SummonerDetails-Matches {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,17 @@
+.Homepage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Homepage-search {
+  width: 50%;
+  border: 2px solid black;
+}
+
+.Homepage img {
+  width: 15%;
+  margin: 2rem;
+}
