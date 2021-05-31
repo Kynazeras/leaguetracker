@@ -6,6 +6,18 @@ import MatchHistory from "../../components/MatchHistory/MatchHistory";
 // Css
 import "./SummonerDetails.css";
 
+const LoadingDiv = () => (
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <img src="https://i.gifer.com/PX6F.gif" />
+  </div>
+);
+
 export default class SummonerDetails extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +27,13 @@ export default class SummonerDetails extends Component {
       summonerLevel: "",
       champions: [],
       matches: [],
+      loading: true,
+      rankDetails: null,
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
     this.getMatchHistory = this.getMatchHistory.bind(this);
+    this.getRankedInfo = this.getRankedInfo.bind(this);
   }
 
   componentDidMount() {
@@ -28,16 +43,17 @@ export default class SummonerDetails extends Component {
   getSummonerDetails() {
     const { match } = this.props;
     const summonerName = match.params.summonerName;
-    axios.get(`/api/summoner/${summonerName}`).then((res) => {
+    axios.get(`/api/summoner/details/${summonerName}`).then((res) => {
       console.log(res.data);
       const data = res.data;
-      const { puuid, summonerLevel } = data;
+      const { puuid, summonerLevel, id } = data;
       this.setState(
         {
           puuid,
           summonerLevel,
         },
         () => {
+          this.getRankedInfo(id);
           this.getMatchHistory(this.state.puuid);
         }
       );
@@ -49,13 +65,23 @@ export default class SummonerDetails extends Component {
       console.log(res.data);
       this.setState({
         matches: res.data,
+        loading: false,
+      });
+    });
+  }
+
+  getRankedInfo(id) {
+    axios.get(`/api/summoner/rank/${id}`).then((res) => {
+      console.log(res.data);
+      this.setState({
+        rankDetails: res.data[0],
       });
     });
   }
 
   render() {
     const { match } = this.props;
-    const { summonerLevel, matches } = this.state;
+    const { summonerLevel, matches, loading, rankDetails } = this.state;
     const summonerName = match.params.summonerName;
     return (
       <div className="SummonerDetails">
@@ -64,14 +90,42 @@ export default class SummonerDetails extends Component {
             {summonerName} - {summonerLevel}
           </h1>
         </header>
-        <div className="container">
-          <div>
-            <h1>Test</h1>
+        {loading ? (
+          <LoadingDiv />
+        ) : (
+          <div className="container">
+            <div className="rank-container">
+              <div className="box">
+                <h2>Rank</h2>
+                <hr />
+                <p>
+                  {rankDetails.tier} - {rankDetails.rank}
+                </p>
+                <p>{rankDetails.leaguePoints} LP</p>
+                <p>
+                  WR:{" "}
+                  {(
+                    (rankDetails.wins /
+                      (rankDetails.wins + rankDetails.losses)) *
+                    100
+                  ).toFixed(1)}
+                </p>
+              </div>
+              <div className="box">
+                <h2>Winrate</h2>
+                <hr />
+              </div>
+              <div className="box">
+                <h2>Best Champ</h2>
+                <hr />
+              </div>
+              <div></div>
+            </div>
+            <div>
+              <MatchHistory matches={matches} />
+            </div>
           </div>
-          <div>
-            <MatchHistory matches={matches} />
-          </div>
-        </div>
+        )}
       </div>
     );
   }

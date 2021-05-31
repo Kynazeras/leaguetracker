@@ -12,10 +12,10 @@ const getKDA = (kills, deaths, assists) => {
 
 export default class Match extends Component {
   render() {
-    const { championName, kills, deaths, assists, totalMinionsKilled } =
+    const { championName, kills, deaths, assists, totalMinionsKilled, win } =
       this.props;
     return (
-      <div className="Match">
+      <div className={`Match ${win ? "Match-win" : "Match-lose"}`}>
         <div className="Match-details">
           <div className="Match-type">
             <p>Normal Draft</p>
@@ -39,6 +39,26 @@ export default class Match extends Component {
               <strong>{totalMinionsKilled}</strong> CS
             </div>
           </div>
+          <div className="Match-items">
+            <div className="item">item</div>
+            <div className="item">item</div>
+            <div className="item">item</div>
+            <div className="item">item</div>
+            <div className="item">item</div>
+            <div className="item">item</div>
+          </div>
+          {/* <div className="Match-teams">
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+            <div className="member">member</div>
+          </div> */}
         </div>
       </div>
     );
