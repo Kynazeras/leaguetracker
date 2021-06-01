@@ -1,6 +1,5 @@
 .Match {
   position: relative;
-  /* background-color: #d7fbe8; */
   margin-bottom: 1rem;
   width: 100%;
   height: 100px;
@@ -22,6 +21,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .Match-type {
@@ -70,19 +70,11 @@
 }
 
 .Match-teams {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    ". ."
-    ". ."
-    ". ."
-    ". ."
-    ". .";
+  display: flex;
 }
 
-.Match-teams .member {
-  border: 2px solid black;
-  /* height 15px */
+.Match-teams .team-list {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
 }
