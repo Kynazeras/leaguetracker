@@ -33,8 +33,8 @@ router.get("/:matchId", (req, res) => {
       `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
     )
     .then((response) => {
-      const myObj = response.data.info;
-      res.send(myObj);
+      console.log(response.data);
+      res.send(response.data.info);
     })
     .catch((e) => {
       console.log(e);
@@ -62,9 +62,9 @@ const gatherMatchPromises = (matchArr, dataArr) => {
   let promises = [];
   matchArr.forEach((match) =>
     promises.push(
-      getMatchDetails(match).then((response) =>
-        dataArr.push(response.data.info)
-      )
+      getMatchDetails(match).then((response) => {
+        dataArr.push(response.data.info);
+      })
     )
   );
   return promises;

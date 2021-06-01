@@ -10,10 +10,35 @@ const getKDA = (kills, deaths, assists) => {
   return (ka / deaths).toFixed(2);
 };
 
+const gameTime = (duration) => {
+  // Hours, minutes and seconds
+  var hrs = ~~(duration / 3600);
+  var mins = ~~((duration % 3600) / 60);
+  var secs = ~~duration % 60;
+
+  // Output like "1:01" or "4:03:59" or "123:03:59"
+  var ret = "";
+
+  if (hrs > 0) {
+    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+  }
+
+  ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+  ret += "" + secs;
+  return ret;
+};
+
 export default class Match extends Component {
   render() {
-    const { championName, kills, deaths, assists, totalMinionsKilled, win } =
-      this.props;
+    const {
+      championName,
+      kills,
+      deaths,
+      assists,
+      totalMinionsKilled,
+      win,
+      timePlayed,
+    } = this.props;
     return (
       <div className={`Match ${win ? "Match-win" : "Match-lose"}`}>
         <div className="Match-details">
@@ -21,7 +46,7 @@ export default class Match extends Component {
             <p>Normal Draft</p>
             <p>3 days ago</p>
             <p>
-              <strong>Loss</strong> 24:06
+              <strong>{win ? "Win" : "Loss"}</strong> {gameTime(timePlayed)}
             </p>
           </div>
           <div className="Champ">
@@ -47,18 +72,22 @@ export default class Match extends Component {
             <div className="item">item</div>
             <div className="item">item</div>
           </div>
-          {/* <div className="Match-teams">
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-            <div className="member">member</div>
-          </div> */}
+          <div className="Match-teams">
+            <div className="team-list">
+              <div className="member">member</div>
+              <div className="member">member</div>
+              <div className="member">member</div>
+              <div className="member">member</div>
+              <div className="member">member</div>
+            </div>
+            <div className="team-list">
+              <div className="member">member</div>
+              <div className="member">member</div>
+              <div className="member">member</div>
+              <div className="member">member</div>
+              <div className="member">member</div>
+            </div>
+          </div>
         </div>
       </div>
     );

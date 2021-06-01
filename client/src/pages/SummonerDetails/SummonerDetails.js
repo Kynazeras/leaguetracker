@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 // Components
 import MatchHistory from "../../components/MatchHistory/MatchHistory";
+import Rank from "../../components/SummonerDetails/Rank";
 // Css
 import "./SummonerDetails.css";
 
@@ -96,20 +97,7 @@ export default class SummonerDetails extends Component {
           <div className="container">
             <div className="rank-container">
               <div className="box">
-                <h2>Rank</h2>
-                <hr />
-                <p>
-                  {rankDetails.tier} - {rankDetails.rank}
-                </p>
-                <p>{rankDetails.leaguePoints} LP</p>
-                <p>
-                  WR:{" "}
-                  {(
-                    (rankDetails.wins /
-                      (rankDetails.wins + rankDetails.losses)) *
-                    100
-                  ).toFixed(1)}
-                </p>
+                <Rank {...rankDetails} />
               </div>
               <div className="box">
                 <h2>Winrate</h2>

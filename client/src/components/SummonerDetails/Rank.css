@@ -1,0 +1,21 @@
+.rank-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 15% 15% 15% 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "."
+    "."
+    "."
+    ".";
+  gap: 1em;
+}
+
+.rank-container .box {
+  padding: 0 2rem;
+  background-color: #d7fbe8;
+}
+
+.rank-container .box h2 {
+  margin-bottom: 0.5rem;
+}
