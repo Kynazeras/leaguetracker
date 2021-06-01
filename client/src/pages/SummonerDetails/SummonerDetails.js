@@ -82,7 +82,7 @@ export default class SummonerDetails extends Component {
 
   render() {
     const { match } = this.props;
-    const { summonerLevel, matches, loading, rankDetails } = this.state;
+    const { summonerLevel, matches, loading, rankDetails, puuid } = this.state;
     const summonerName = match.params.summonerName;
     return (
       <div className="SummonerDetails">
@@ -110,7 +110,7 @@ export default class SummonerDetails extends Component {
               <div></div>
             </div>
             <div>
-              <MatchHistory matches={matches} />
+              <MatchHistory matches={matches} puuid={puuid} />
             </div>
           </div>
         )}

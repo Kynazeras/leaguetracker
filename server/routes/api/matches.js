@@ -13,13 +13,10 @@ router.get("/:puuid", (req, res) => {
   getSummonerDetails(puuid)
     .then((response) => {
       const matchArray = response.data;
+      console.log(matchArray);
       let allMatchData = [];
       let promises = gatherMatchPromises(matchArray, allMatchData);
-      Promise.all(promises).then((results) =>
-        res.send(
-          allMatchData.map((match) => getSummonerObj(match.participants, puuid))
-        )
-      );
+      Promise.all(promises).then((results) => res.send(allMatchData));
     })
     .catch((e) => {
       console.log(e);
