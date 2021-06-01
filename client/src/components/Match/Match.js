@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 // Css
 import "./Match.css";
+// Util functions
+import { timeDifference } from "../../constants/util-functions";
 
 const champImg = (champ) =>
   `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champ}.png`;
@@ -38,13 +40,14 @@ export default class Match extends Component {
       totalMinionsKilled,
       win,
       timePlayed,
-    } = this.props;
+    } = this.props.summonerObj;
+    const { gameCreation } = this.props;
     return (
       <div className={`Match ${win ? "Match-win" : "Match-lose"}`}>
         <div className="Match-details">
           <div className="Match-type">
             <p>Normal Draft</p>
-            <p>3 days ago</p>
+            <p>{timeDifference(new Date(), gameCreation)}</p>
             <p>
               <strong>{win ? "Win" : "Loss"}</strong> {gameTime(timePlayed)}
             </p>
