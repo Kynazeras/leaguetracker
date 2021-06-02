@@ -1,0 +1,23 @@
+.SummonerHeader {
+  height: 15%;
+  display: flex;
+  align-items: center;
+}
+
+.SummonerHeader .level {
+  position: absolute;
+  top: 13px;
+  left: 132px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border: 2px solid #3e206d;
+  border-radius: 5px;
+  width: 3%;
+}
+
+.SummonerHeader img {
+  width: 8%;
+  border: 2px solid #414165;
+  border-radius: 5px;
+}

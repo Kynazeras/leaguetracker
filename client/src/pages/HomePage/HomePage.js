@@ -9,7 +9,7 @@ export default class HomePage extends Component {
     super(props);
 
     this.state = {
-      summonerName: "Doublelift",
+      summonerName: "Kynazeras",
     };
 
     this.handleChange = this.handleChange.bind(this);

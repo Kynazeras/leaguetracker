@@ -19,9 +19,10 @@
 
 .Match-details {
   width: 100%;
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: space-between;
+  grid-template-columns: 16% 19% 15% minmax(120px, 22%) minmax(155px, 31%) 4%;
+  grid-template-rows: 78px;
 }
 
 .Match-type {
