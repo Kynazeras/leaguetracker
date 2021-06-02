@@ -7,9 +7,18 @@ import { timeDifference } from "../../constants/util-functions";
 const champImg = (champ) =>
   `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champ}.png`;
 
+const itemImg = (itemId) =>
+  `http://ddragon.leagueoflegends.com/cdn/11.11.1/img/item/${itemId}.png`;
+
 const getKDA = (kills, deaths, assists) => {
   let ka = kills + assists;
   return (ka / deaths).toFixed(2);
+};
+
+const getTeams = (participants) => {
+  const blueSide = participants.filter((person) => person.teamId === 100);
+  const redSide = participants.filter((person) => person.teamId === 200);
+  return { blueSide, redSide };
 };
 
 const gameTime = (duration) => {
@@ -40,8 +49,17 @@ export default class Match extends Component {
       totalMinionsKilled,
       win,
       timePlayed,
+      item0,
+      item1,
+      item2,
+      item3,
+      item4,
+      item5,
     } = this.props.summonerObj;
     const { gameCreation } = this.props;
+    const items = [item0, item1, item2, item3, item4, item5];
+    // console.log(this.props);
+    const teams = getTeams(this.props.participants);
     return (
       <div className={`Match ${win ? "Match-win" : "Match-lose"}`}>
         <div className="Match-details">
@@ -67,28 +85,44 @@ export default class Match extends Component {
               <strong>{totalMinionsKilled}</strong> CS
             </div>
           </div>
-          <div className="Match-items">
-            <div className="item">item</div>
-            <div className="item">item</div>
-            <div className="item">item</div>
-            <div className="item">item</div>
-            <div className="item">item</div>
-            <div className="item">item</div>
+          <div className="items">
+            <div className="Match-items">
+              {items.map((item) => (
+                <React.Fragment>
+                  {item ? (
+                    <img className="item" src={itemImg(item)} />
+                  ) : (
+                    <div className="item no-item"></div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
+
           <div className="Match-teams">
             <div className="team-list">
-              <div className="member">member</div>
-              <div className="member">member</div>
-              <div className="member">member</div>
-              <div className="member">member</div>
-              <div className="member">member</div>
+              {teams.blueSide.map((summoner) => (
+                <div className="summoner">
+                  <div className="champ-img">
+                    <img src={champImg(summoner.championName)} />
+                  </div>
+                  <div className="summoner-name">
+                    <span>{summoner.summonerName}</span>
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="team-list">
-              <div className="member">member</div>
-              <div className="member">member</div>
-              <div className="member">member</div>
-              <div className="member">member</div>
-              <div className="member">member</div>
+              {teams.redSide.map((summoner) => (
+                <div className="summoner">
+                  <div className="champ-img">
+                    <img src={champImg(summoner.championName)} />
+                  </div>
+                  <div className="summoner-name">
+                    <span>{summoner.summonerName}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

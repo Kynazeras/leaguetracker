@@ -14,11 +14,19 @@ export default function Rank({ tier, rank, leaguePoints, wins, losses }) {
     <React.Fragment>
       <h2>Rank</h2>
       <hr />
-      <p>
-        {tier} - {rank}
-      </p>
-      <p>{leaguePoints} LP</p>
-      <p>WR: {getWinRate(wins, losses)}</p>
+      {tier ? (
+        <React.Fragment>
+          <p>
+            {tier} - {rank}
+          </p>
+          <p>{leaguePoints} LP</p>
+          <p>WR: {getWinRate(wins, losses)}</p>
+        </React.Fragment>
+      ) : (
+        <div>
+          <h2>No Ranked data</h2>
+        </div>
+      )}
     </React.Fragment>
   );
 }
