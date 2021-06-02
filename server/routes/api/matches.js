@@ -8,30 +8,17 @@ const env = require("dotenv").config();
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 const matchesV5ApiKeyString = `&api_key=${process.env.RIOT_API_KEY}`;
 
-router.get("/:puuid", (req, res) => {
+router.get("/bySummonerId/:puuid", (req, res) => {
   const { puuid } = req.params;
   getSummonerDetails(puuid)
     .then((response) => {
       const matchArray = response.data;
-      console.log(matchArray);
       let allMatchData = [];
       let promises = gatherMatchPromises(matchArray, allMatchData);
-      Promise.all(promises).then((results) => res.send(allMatchData));
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-});
-
-router.get("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  axios
-    .get(
-      `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
-    )
-    .then((response) => {
-      console.log(response.data);
-      res.send(response.data.info);
+      Promise.all(promises).then((results) => {
+        console.log("success");
+        res.send(allMatchData);
+      });
     })
     .catch((e) => {
       console.log(e);
@@ -46,13 +33,10 @@ const getSummonerDetails = (puuid) => {
 };
 
 const getMatchDetails = (matchId) => {
+  console.log(matchId);
   return axios.get(
     `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
   );
-};
-
-const getSummonerObj = (participants, puuid) => {
-  return participants.find((person) => person.puuid === puuid);
 };
 
 const gatherMatchPromises = (matchArr, dataArr) => {

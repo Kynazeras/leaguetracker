@@ -19,6 +19,10 @@ const LoadingDiv = () => (
   </div>
 );
 
+const getProfileIcon = (iconId) => {
+  return `http://ddragon.leagueoflegends.com/cdn/11.11.1/img/profileicon/${iconId}.png`;
+};
+
 export default class SummonerDetails extends Component {
   constructor(props) {
     super(props);
@@ -26,9 +30,10 @@ export default class SummonerDetails extends Component {
     this.state = {
       puuid: "",
       summonerLevel: "",
+      profileIconId: "",
       champions: [],
       matches: [],
-      loading: true,
+      loading: false,
       rankDetails: null,
     };
 
@@ -47,11 +52,13 @@ export default class SummonerDetails extends Component {
     axios.get(`/api/summoner/details/${summonerName}`).then((res) => {
       console.log(res.data);
       const data = res.data;
-      const { puuid, summonerLevel, id } = data;
+      const { puuid, summonerLevel, id, profileIconId } = data;
+      console.log(data);
       this.setState(
         {
           puuid,
           summonerLevel,
+          profileIconId,
         },
         () => {
           this.getRankedInfo(id);
@@ -62,7 +69,7 @@ export default class SummonerDetails extends Component {
   }
 
   getMatchHistory(puuid) {
-    axios.get(`/api/matches/${puuid}`).then((res) => {
+    axios.get(`/api/matches/bySummonerId/${puuid}`).then((res) => {
       console.log(res.data);
       this.setState({
         matches: res.data,
@@ -80,13 +87,32 @@ export default class SummonerDetails extends Component {
     });
   }
 
+  // Winrate chart
+
+  // Top Champs
+
   render() {
     const { match } = this.props;
-    const { summonerLevel, matches, loading, rankDetails, puuid } = this.state;
+    const {
+      summonerLevel,
+      matches,
+      loading,
+      rankDetails,
+      puuid,
+      profileIconId,
+    } = this.state;
     const summonerName = match.params.summonerName;
     return (
       <div className="SummonerDetails">
         <header>
+          <img
+            src={getProfileIcon(profileIconId)}
+            style={{
+              width: "8%",
+              border: "2px solid #414165",
+              borderRadius: "5px",
+            }}
+          />
           <h1>
             {summonerName} - {summonerLevel}
           </h1>
@@ -95,7 +121,7 @@ export default class SummonerDetails extends Component {
           <LoadingDiv />
         ) : (
           <div className="container">
-            <div className="rank-container">
+            <section className="rank-container">
               <div className="box">
                 <Rank {...rankDetails} />
               </div>
@@ -108,10 +134,10 @@ export default class SummonerDetails extends Component {
                 <hr />
               </div>
               <div></div>
-            </div>
-            <div>
+            </section>
+            <section>
               <MatchHistory matches={matches} puuid={puuid} />
-            </div>
+            </section>
           </div>
         )}
       </div>

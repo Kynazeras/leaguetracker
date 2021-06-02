@@ -47,7 +47,6 @@
 .Match-KDA {
   display: flex;
   flex-direction: column;
-  margin-right: 1rem;
 }
 
 .Match-KDA div {
@@ -55,18 +54,25 @@
   margin: 0.3rem;
 }
 
+.items {
+  display: flex;
+}
+
 .Match-items {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0.5em;
-  grid-template-areas:
-    ". . ."
-    ". . .";
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 2px;
+  justify-content: space-evenly;
 }
 
 .Match-items .item {
-  border: 2px solid black;
+  width: 2rem;
+  height: 2rem;
+}
+
+.Match-items .item.no-item {
+  background-color: #f0e3ff;
 }
 
 .Match-teams {
@@ -76,5 +82,36 @@
 .Match-teams .team-list {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  flex: 1 1;
   margin-right: 10px;
+}
+
+.Match-teams .team-list .summoner {
+  display: flex;
+  margin-bottom: 2px;
+  align-items: center;
+}
+
+.Match-teams .team-list .summoner .champ-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  height: 14px;
+  width: 14px;
+  border-radius: 2px;
+  border: 1px solid #383864;
+  overflow: hidden;
+}
+
+.Match-teams .team-list .summoner .champ-img img {
+  width: 100%;
+}
+
+.Match-teams .team-list .summoner .summoner-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 12px;
 }
