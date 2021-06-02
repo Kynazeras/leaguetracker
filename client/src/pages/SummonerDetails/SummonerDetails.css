@@ -8,11 +8,11 @@
   color: black;
 }
 
-.SummonerDetails header {
+/* .SummonerDetails header {
   height: 15%;
   display: flex;
   align-items: center;
-}
+} */
 
 .SummonerDetails .container {
   height: 80%;

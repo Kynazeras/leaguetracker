@@ -2,8 +2,9 @@ import React, { Component } from "react";
 // axios
 import axios from "axios";
 // Components
+import SummonerHeader from "../../components/SummonerDetails/SummonerHeader/SummonerHeader";
 import MatchHistory from "../../components/MatchHistory/MatchHistory";
-import Rank from "../../components/SummonerDetails/Rank";
+import Rank from "../../components/SummonerDetails/Rank/Rank";
 // Css
 import "./SummonerDetails.css";
 
@@ -104,19 +105,12 @@ export default class SummonerDetails extends Component {
     const summonerName = match.params.summonerName;
     return (
       <div className="SummonerDetails">
-        <header>
-          <img
-            src={getProfileIcon(profileIconId)}
-            style={{
-              width: "8%",
-              border: "2px solid #414165",
-              borderRadius: "5px",
-            }}
-          />
-          <h1>
-            {summonerName} - {summonerLevel}
-          </h1>
-        </header>
+        <SummonerHeader
+          getProfileIcon={getProfileIcon}
+          profileIconId={profileIconId}
+          summonerName={summonerName}
+          summonerLevel={summonerLevel}
+        />
         {loading ? (
           <LoadingDiv />
         ) : (
