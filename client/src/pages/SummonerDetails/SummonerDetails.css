@@ -24,6 +24,12 @@
   gap: 1em;
 }
 
+@media only screen and (max-width: 600px) {
+  .SummonerDetails .container .rank-container {
+    background-color: red;
+  }
+}
+
 .SummonerDetails-Matches {
   height: 80%;
   width: 100%;
