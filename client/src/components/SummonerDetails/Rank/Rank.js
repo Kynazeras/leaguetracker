@@ -1,6 +1,8 @@
 import React from "react";
 // Css
 import "./Rank.css";
+// images
+import challenger from "../../../images/ranked-emblems/Emblem_Challenger.png";
 
 const getWinRate = (wins, losses) => {
   const totalGames = wins + losses;
@@ -15,13 +17,16 @@ export default function Rank({ tier, rank, leaguePoints, wins, losses }) {
       <h2>Rank</h2>
       <hr />
       {tier ? (
-        <React.Fragment>
-          <p>
-            {tier} - {rank}
-          </p>
-          <p>{leaguePoints} LP</p>
-          <p>WR: {getWinRate(wins, losses)}</p>
-        </React.Fragment>
+        <div className="info">
+          <img className="rank-img" src={challenger} />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>Ranked Solo</span>
+            <span>
+              {tier} - {rank} / {leaguePoints} LP
+            </span>
+            <span className="win-rate">WR: {getWinRate(wins, losses)}</span>
+          </div>
+        </div>
       ) : (
         <div>
           <h2>No Ranked data</h2>

@@ -6,7 +6,7 @@ const axios = require("axios");
 const env = require("dotenv").config();
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 
-router.get("/:champId", async (req, res) => {
+router.get("/img/:champId", async (req, res) => {
   const { champId } = req.params;
   const champs = await getChampList();
   const champList = champs.data.data;

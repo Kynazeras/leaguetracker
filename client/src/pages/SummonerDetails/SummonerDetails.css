@@ -21,19 +21,43 @@
 .rank-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 15% 15% 15% 1fr;
+  grid-template-rows: repeat(auto-fit, minmax(0, min-content));
   gap: 0px 0px;
   grid-template-areas:
     "."
     "."
     "."
     ".";
-  gap: 1em;
+  gap: 1.5em;
 }
 
 .rank-container .box {
-  padding: 0 2rem;
+  padding: 0.5rem 2rem;
   background-color: #d7fbe8;
+  height: 100%;
+}
+
+.rank-container .box .info {
+  border: 2px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.rank-container .box .rank-img {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.rank-container .box .info span {
+  font-size: 0.85em;
+}
+
+.rank-container .box .info .win-rate {
+  margin-top: 1rem;
 }
 
 .rank-container .box h2 {
