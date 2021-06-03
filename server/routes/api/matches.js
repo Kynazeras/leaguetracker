@@ -16,7 +16,6 @@ router.get("/bySummonerId/:puuid", (req, res) => {
       let allMatchData = [];
       let promises = gatherMatchPromises(matchArray, allMatchData);
       Promise.all(promises).then((results) => {
-        console.log("success");
         res.send(allMatchData);
       });
     })
@@ -33,7 +32,6 @@ const getSummonerDetails = (puuid) => {
 };
 
 const getMatchDetails = (matchId) => {
-  console.log(matchId);
   return axios.get(
     `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
   );

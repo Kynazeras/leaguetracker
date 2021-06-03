@@ -37,7 +37,8 @@
 }
 
 .Champ img {
-  width: 50%;
+  width: 4rem;
+  height: 4rem;
 }
 
 .Champ h2 {
@@ -108,6 +109,7 @@
 
 .Match-teams .team-list .summoner .champ-img img {
   width: 100%;
+  height: 100%;
 }
 
 .Match-teams .team-list .summoner .summoner-name {
