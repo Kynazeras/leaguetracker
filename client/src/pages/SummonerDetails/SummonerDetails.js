@@ -37,6 +37,8 @@ export default class SummonerDetails extends Component {
       loading: false,
       rankDetails: null,
       bestChampImg: "",
+      bestChampLvl: "",
+      bestChampPoints: "",
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
@@ -94,15 +96,17 @@ export default class SummonerDetails extends Component {
   // Winrate chart
 
   // Top Champs
-  getChampMastery(id) {
-    axios.get(`/api/summoner/mastery/${id}`).then((res) => {
-      console.log(res.data);
-      axios.get(`/api/champs/${res.data[0].championId}`).then((res) => {
-        console.log(res.data);
-        this.setState({
-          bestChampImg: res.data,
-        });
-      });
+  async getChampMastery(id) {
+    const champMasteries = await axios.get(`/api/summoner/mastery/${id}`);
+    console.log(champMasteries);
+    const bestChamp = champMasteries.data[0];
+    const { championId, championLevel, championPoints } = bestChamp;
+    const champImg = await axios.get(`/api/champs/img/${championId}`);
+    console.log(champImg);
+    this.setState({
+      bestChampImg: champImg.data,
+      bestChampLvl: championLevel,
+      bestChampPoints: championPoints,
     });
   }
 
@@ -116,6 +120,8 @@ export default class SummonerDetails extends Component {
       puuid,
       profileIconId,
       bestChampImg,
+      bestChampLvl,
+      bestChampPoints,
     } = this.state;
     const summonerName = match.params.summonerName;
     return (
@@ -137,18 +143,32 @@ export default class SummonerDetails extends Component {
               <div className="box">
                 <h2>Winrate</h2>
                 <hr />
-                <h1>Test</h1>
-                <h1>Test</h1>
               </div>
               <div className="box">
                 <h2>Best Champ</h2>
                 <hr />
                 {bestChampImg && (
-                  <img
-                    src={bestChampImg}
-                    alt="best champion"
-                    style={{ height: "5rem", width: "5rem" }}
-                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={bestChampImg}
+                      alt="best champion"
+                      style={{
+                        height: "5rem",
+                        width: "5rem",
+                        marginRight: "1rem",
+                      }}
+                    />
+                    <div>
+                      <p>Mastery Level: {bestChampLvl}</p>
+                      <p>Mastery Points: {bestChampPoints}</p>
+                    </div>
+                  </div>
                 )}
               </div>
               <div className="empty"></div>
