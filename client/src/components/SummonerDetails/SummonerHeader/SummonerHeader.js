@@ -10,10 +10,10 @@ export default function SummonerHeader({
 }) {
   return (
     <header className="SummonerHeader">
-      {/* <div> */}
-      <div className="level">{summonerLevel}</div>
-      <img src={getProfileIcon(profileIconId)} />
-      {/* </div> */}
+      <div className="profile-icon">
+        <div className="level">{summonerLevel}</div>
+        <img src={getProfileIcon(profileIconId)} alt={profileIconId} />
+      </div>
       <h1>{summonerName}</h1>
     </header>
   );

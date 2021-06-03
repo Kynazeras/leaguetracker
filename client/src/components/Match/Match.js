@@ -71,7 +71,7 @@ export default class Match extends Component {
             </p>
           </div>
           <div className="Champ">
-            <img src={champImg(championName)} alt="champion" />
+            <img src={champImg(championName)} alt={championName} />
             <h2>{championName}</h2>
           </div>
           <div className="Match-KDA">
@@ -90,9 +90,14 @@ export default class Match extends Component {
               {items.map((item) => (
                 <React.Fragment>
                   {item ? (
-                    <img className="item" src={itemImg(item)} />
+                    <img
+                      key={item}
+                      className="item"
+                      src={itemImg(item)}
+                      alt={item}
+                    />
                   ) : (
-                    <div className="item no-item"></div>
+                    <div key={item} className="item no-item"></div>
                   )}
                 </React.Fragment>
               ))}
@@ -102,9 +107,12 @@ export default class Match extends Component {
           <div className="Match-teams">
             <div className="team-list">
               {teams.blueSide.map((summoner) => (
-                <div className="summoner">
+                <div className="summoner" key={summoner.championName}>
                   <div className="champ-img">
-                    <img src={champImg(summoner.championName)} />
+                    <img
+                      src={champImg(summoner.championName)}
+                      alt={summoner.championName}
+                    />
                   </div>
                   <div className="summoner-name">
                     <span>{summoner.summonerName}</span>
@@ -114,9 +122,12 @@ export default class Match extends Component {
             </div>
             <div className="team-list">
               {teams.redSide.map((summoner) => (
-                <div className="summoner">
+                <div className="summoner" key={summoner.championName}>
                   <div className="champ-img">
-                    <img src={champImg(summoner.championName)} />
+                    <img
+                      src={champImg(summoner.championName)}
+                      alt={summoner.championName}
+                    />
                   </div>
                   <div className="summoner-name">
                     <span>{summoner.summonerName}</span>

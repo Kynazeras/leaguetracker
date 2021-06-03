@@ -10,9 +10,11 @@ const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 // Routes
 const summonerRoutes = require("./routes/api/summoner");
 const matchRoutes = require("./routes/api/matches");
+const champRoutes = require("./routes/api/champs");
 // Routers
 app.use("/api/summoner", summonerRoutes);
 app.use("/api/matches", matchRoutes);
+app.use("/api/champs", champRoutes);
 
 //Set the port that you want the server to run on
 const port = process.env.PORT || 8080;

@@ -16,7 +16,7 @@ const LoadingDiv = () => (
       alignItems: "center",
     }}
   >
-    <img src="https://i.gifer.com/PX6F.gif" />
+    <img src="https://i.gifer.com/PX6F.gif" alt="spinner" />
   </div>
 );
 
@@ -36,11 +36,13 @@ export default class SummonerDetails extends Component {
       matches: [],
       loading: false,
       rankDetails: null,
+      bestChampImg: "",
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
     this.getMatchHistory = this.getMatchHistory.bind(this);
     this.getRankedInfo = this.getRankedInfo.bind(this);
+    this.getChampMastery = this.getChampMastery.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +65,7 @@ export default class SummonerDetails extends Component {
         },
         () => {
           this.getRankedInfo(id);
+          this.getChampMastery(id);
           this.getMatchHistory(this.state.puuid);
         }
       );
@@ -91,6 +94,17 @@ export default class SummonerDetails extends Component {
   // Winrate chart
 
   // Top Champs
+  getChampMastery(id) {
+    axios.get(`/api/summoner/mastery/${id}`).then((res) => {
+      console.log(res.data);
+      axios.get(`/api/champs/${res.data[0].championId}`).then((res) => {
+        console.log(res.data);
+        this.setState({
+          bestChampImg: res.data,
+        });
+      });
+    });
+  }
 
   render() {
     const { match } = this.props;
@@ -101,6 +115,7 @@ export default class SummonerDetails extends Component {
       rankDetails,
       puuid,
       profileIconId,
+      bestChampImg,
     } = this.state;
     const summonerName = match.params.summonerName;
     return (
@@ -122,12 +137,21 @@ export default class SummonerDetails extends Component {
               <div className="box">
                 <h2>Winrate</h2>
                 <hr />
+                <h1>Test</h1>
+                <h1>Test</h1>
               </div>
               <div className="box">
                 <h2>Best Champ</h2>
                 <hr />
+                {bestChampImg && (
+                  <img
+                    src={bestChampImg}
+                    alt="best champion"
+                    style={{ height: "5rem", width: "5rem" }}
+                  />
+                )}
               </div>
-              <div></div>
+              <div className="empty"></div>
             </section>
             <section>
               <MatchHistory matches={matches} puuid={puuid} />
