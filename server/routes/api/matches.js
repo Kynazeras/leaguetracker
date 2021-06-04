@@ -8,24 +8,19 @@ const env = require("dotenv").config();
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 const matchesV5ApiKeyString = `&api_key=${process.env.RIOT_API_KEY}`;
 
-router.get("/bySummonerId/:puuid", (req, res) => {
+router.get("/bySummonerId/:puuid", async (req, res) => {
   const { puuid } = req.params;
-  getSummonerDetails(puuid)
-    .then((response) => {
-      const matchArray = response.data;
-      let allMatchData = [];
-      let promises = gatherMatchPromises(matchArray, allMatchData);
-      Promise.all(promises).then((results) => {
-        res.send(allMatchData);
-      });
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+  const summonerMatchDetails = await getSummonerMatchDetails(puuid);
+  const matchArray = summonerMatchDetails.data;
+  let allMatchData = [];
+  let promises = gatherMatchPromises(matchArray, allMatchData);
+  Promise.all(promises).then((results) => {
+    res.send(allMatchData);
+  });
 });
 
 // Functions
-const getSummonerDetails = (puuid) => {
+const getSummonerMatchDetails = (puuid) => {
   return axios.get(
     `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10${matchesV5ApiKeyString}`
   );
