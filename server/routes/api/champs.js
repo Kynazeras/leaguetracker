@@ -8,12 +8,16 @@ const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 
 router.get("/img/:champId", async (req, res) => {
   const { champId } = req.params;
-  const champs = await getChampList();
-  const champList = champs.data.data;
-  let champName = findChampName(champList, champId);
-  res.send(
-    `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champName}.png`
-  );
+  try {
+    const champs = await getChampList();
+    const champList = champs.data.data;
+    let champName = findChampName(champList, champId);
+    res.send(
+      `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champName}.png`
+    );
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 const getChampList = () => {
