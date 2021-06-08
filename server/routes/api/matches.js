@@ -10,13 +10,21 @@ const matchesV5ApiKeyString = `&api_key=${process.env.RIOT_API_KEY}`;
 
 router.get("/bySummonerId/:puuid", async (req, res) => {
   const { puuid } = req.params;
-  const summonerMatchDetails = await getSummonerMatchDetails(puuid);
-  const matchArray = summonerMatchDetails.data;
-  let allMatchData = [];
-  let promises = gatherMatchPromises(matchArray, allMatchData);
-  Promise.all(promises).then((results) => {
-    res.send(allMatchData);
-  });
+  try {
+    const summonerMatchDetails = await getSummonerMatchDetails(puuid);
+    const matchArray = summonerMatchDetails.data;
+    let allMatchData = [];
+    let promises = gatherMatchPromises(matchArray, allMatchData);
+    Promise.all(promises)
+      .then((results) => {
+        res.send(allMatchData);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  } catch {
+    res.send("this did not work out");
+  }
 });
 
 // Functions

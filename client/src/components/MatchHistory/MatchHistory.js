@@ -13,12 +13,19 @@ export default class MatchHistory extends Component {
     const { matches, puuid } = this.props;
     return (
       <div className="MatchHistory">
-        {matches.map((match) => (
-          <Match
-            summonerObj={getSummonerObj(match.participants, puuid)}
-            {...match}
-          />
-        ))}
+        {Array.isArray(matches) ? (
+          <React.Fragment>
+            {matches.map((match) => (
+              <Match
+                key={match.gameId}
+                summonerObj={getSummonerObj(match.participants, puuid)}
+                {...match}
+              />
+            ))}
+          </React.Fragment>
+        ) : (
+          <h1>Match History not found</h1>
+        )}
       </div>
     );
   }
