@@ -7,6 +7,8 @@ import MatchHistory from "../../components/MatchHistory/MatchHistory";
 import Rank from "../../components/SummonerDetails/Rank/Rank";
 // Css
 import "./SummonerDetails.css";
+// Constants
+import { numberWithCommas } from "../../constants/util-functions";
 
 const LoadingDiv = () => (
   <div
@@ -160,7 +162,7 @@ export default class SummonerDetails extends Component {
                     />
                     <div>
                       <p>Mastery Level: {bestChampLvl}</p>
-                      <p>Mastery Points: {bestChampPoints}</p>
+                      <p>Mastery Points: {numberWithCommas(bestChampPoints)}</p>
                     </div>
                   </div>
                 )}

@@ -86,3 +86,7 @@ export const getGameTime = (duration) => {
   ret += "" + secs;
   return ret;
 };
+
+export const numberWithCommas = (num) => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
