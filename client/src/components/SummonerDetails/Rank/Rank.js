@@ -2,7 +2,10 @@ import React from "react";
 // Css
 import "./Rank.css";
 // constants
-import { getRankedImg } from "../../../constants/util-functions";
+import {
+  getRankedImg,
+  numberWithCommas,
+} from "../../../constants/util-functions";
 
 const getWinRate = (wins, losses) => {
   const totalGames = wins + losses;
@@ -26,7 +29,7 @@ export default function Rank({ tier, rank, leaguePoints, wins, losses }) {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span>Ranked Solo</span>
             <span>
-              {tier} - {rank} / {leaguePoints} LP
+              {tier} - {rank} / {numberWithCommas(leaguePoints)} LP
             </span>
             <span className="win-rate">WR: {getWinRate(wins, losses)}</span>
           </div>
