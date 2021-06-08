@@ -48,3 +48,41 @@ export const getRankedImg = (tier) => {
   const tierLookUp = tier.toUpperCase();
   return ranksObj[tierLookUp];
 };
+
+// Match info functions
+export const champImg = (champ) =>
+  `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champ}.png`;
+
+export const itemImg = (itemId) =>
+  `http://ddragon.leagueoflegends.com/cdn/11.11.1/img/item/${itemId}.png`;
+
+export const getKDA = (kills, deaths, assists) => {
+  let ka = kills + assists;
+  let deathsToDivide = deaths ? deaths : 1;
+  let kda = (ka / deathsToDivide).toFixed(2);
+  return kda;
+};
+
+export const getTeams = (participants) => {
+  const blueSide = participants.filter((person) => person.teamId === 100);
+  const redSide = participants.filter((person) => person.teamId === 200);
+  return { blueSide, redSide };
+};
+
+export const getGameTime = (duration) => {
+  // Hours, minutes and seconds
+  var hrs = ~~(duration / 3600);
+  var mins = ~~((duration % 3600) / 60);
+  var secs = ~~duration % 60;
+
+  // Output like "1:01" or "4:03:59" or "123:03:59"
+  var ret = "";
+
+  if (hrs > 0) {
+    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+  }
+
+  ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+  ret += "" + secs;
+  return ret;
+};

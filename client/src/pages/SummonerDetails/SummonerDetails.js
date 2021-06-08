@@ -34,7 +34,7 @@ export default class SummonerDetails extends Component {
       profileIconId: "",
       champions: [],
       matches: [],
-      loading: false,
+      loading: true,
       rankDetails: null,
       bestChampImg: "",
       bestChampLvl: "",
@@ -55,10 +55,8 @@ export default class SummonerDetails extends Component {
     const { match } = this.props;
     const summonerName = match.params.summonerName;
     axios.get(`/api/summoner/details/${summonerName}`).then((res) => {
-      console.log(res.data);
       const data = res.data;
       const { puuid, summonerLevel, id, profileIconId } = data;
-      console.log(data);
       this.setState(
         {
           puuid,
@@ -76,7 +74,6 @@ export default class SummonerDetails extends Component {
 
   getMatchHistory(puuid) {
     axios.get(`/api/matches/bySummonerId/${puuid}`).then((res) => {
-      console.log(res.data);
       this.setState({
         matches: res.data,
         loading: false,
@@ -86,7 +83,6 @@ export default class SummonerDetails extends Component {
 
   getRankedInfo(id) {
     axios.get(`/api/summoner/rank/${id}`).then((res) => {
-      console.log(res.data);
       this.setState({
         rankDetails: res.data[0],
       });
@@ -98,11 +94,9 @@ export default class SummonerDetails extends Component {
   // Top Champs
   async getChampMastery(id) {
     const champMasteries = await axios.get(`/api/summoner/mastery/${id}`);
-    console.log(champMasteries);
     const bestChamp = champMasteries.data[0];
     const { championId, championLevel, championPoints } = bestChamp;
     const champImg = await axios.get(`/api/champs/img/${championId}`);
-    console.log(champImg);
     this.setState({
       bestChampImg: champImg.data,
       bestChampLvl: championLevel,
@@ -137,7 +131,7 @@ export default class SummonerDetails extends Component {
         ) : (
           <div className="container">
             <section className="rank-container">
-              <div className="box">
+              <div className="box Rank">
                 <Rank {...rankDetails} />
               </div>
               <div className="box">
@@ -173,7 +167,7 @@ export default class SummonerDetails extends Component {
               </div>
               <div className="empty"></div>
             </section>
-            <section>
+            <section className="SummonerDetails-MatchHistory">
               <MatchHistory matches={matches} puuid={puuid} />
             </section>
           </div>

@@ -7,6 +7,9 @@ const path = require("path");
 const app = express();
 
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
+
+//Serve Client
+app.use(express.static(path.join(__dirname, "client/build")));
 // Routes
 const summonerRoutes = require("./routes/api/summoner");
 const matchRoutes = require("./routes/api/matches");

@@ -3,9 +3,6 @@ const router = express.Router();
 
 const axios = require("axios");
 
-const env = require("dotenv").config();
-const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
-
 router.get("/img/:champId", async (req, res) => {
   const { champId } = req.params;
   try {
@@ -16,7 +13,7 @@ router.get("/img/:champId", async (req, res) => {
       `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champName}.png`
     );
   } catch (err) {
-    res.send(err);
+    res.status(400).json({ error: err.toString() });
   }
 });
 

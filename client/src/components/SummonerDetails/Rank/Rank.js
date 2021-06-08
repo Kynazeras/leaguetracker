@@ -1,8 +1,6 @@
 import React from "react";
 // Css
 import "./Rank.css";
-// images
-import challenger from "../../../images/ranked-emblems/Emblem_Challenger.png";
 // constants
 import { getRankedImg } from "../../../constants/util-functions";
 
@@ -20,7 +18,11 @@ export default function Rank({ tier, rank, leaguePoints, wins, losses }) {
       <hr />
       {tier ? (
         <div className="info">
-          <img className="rank-img" src={getRankedImg(tier)} />
+          <img
+            className="rank-img"
+            src={getRankedImg(tier)}
+            alt="ranked emblem"
+          />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span>Ranked Solo</span>
             <span>
