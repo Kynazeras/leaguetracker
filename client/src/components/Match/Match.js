@@ -92,7 +92,7 @@ export default class Match extends Component {
             </div>
           </div>
         </div>
-        {show ? <MatchExpand win={win} /> : null}
+        {show ? <MatchExpand win={win} teams={teams} /> : null}
       </div>
     );
   }

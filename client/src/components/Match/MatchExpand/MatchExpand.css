@@ -1,0 +1,21 @@
+.MatchExpandSummoner {
+  display: grid;
+  grid-template-columns: 32% 8% 12% 13% 7% 7% 7% 14%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 0;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+
+.MatchExpandSummoner .champ {
+  display: flex;
+  align-items: center;
+}
+
+.MatchExpandSummoner .champ img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
