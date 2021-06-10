@@ -1,20 +1,33 @@
 .Match {
   position: relative;
-  background-color: #d7fbe8;
   margin-bottom: 1rem;
-  width: 100%;
   height: 100px;
-  border: 2px solid black;
   display: flex;
   align-items: center;
   color: black;
   padding: 0 0.5rem;
+  /* -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000; */
+}
+
+.Match.expanded {
+  margin-bottom: 0rem;
+}
+
+.Match-win {
+  background-color: #d7fbe8;
+}
+
+.Match-lose {
+  background-color: #ff96ad;
 }
 
 .Match-details {
   width: 100%;
-  display: flex;
+  display: grid;
   align-items: center;
+  grid-template-columns: 12% 15% 15% minmax(120px, 22%) minmax(155px, 31%) 4%;
+  grid-template-rows: 78px;
 }
 
 .Match-type {
@@ -29,7 +42,8 @@
 }
 
 .Champ img {
-  width: 50%;
+  width: 4rem;
+  height: 4rem;
 }
 
 .Champ h2 {
@@ -45,4 +59,94 @@
 .Match-KDA div {
   text-align: center;
   margin: 0.3rem;
+}
+
+.items {
+  display: flex;
+  justify-content: center;
+}
+
+.Match-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 2px;
+  justify-content: space-evenly;
+}
+
+.Match-items .item {
+  width: 2rem;
+  height: 2rem;
+}
+
+.Match-items .item.no-item {
+  background-color: #f0e3ff;
+}
+
+.Match-teams {
+  display: flex;
+}
+
+.Match-teams .team-list {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1 1;
+  margin-right: 10px;
+}
+
+.Match-teams .team-list .summoner {
+  display: flex;
+  margin-bottom: 2px;
+  align-items: center;
+}
+
+.Match-teams .team-list .summoner .champ-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  height: 14px;
+  width: 14px;
+  border-radius: 2px;
+  border: 1px solid #383864;
+  overflow: hidden;
+}
+
+.Match-teams .team-list .summoner .champ-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.Match-teams .team-list .summoner .summoner-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.Match-show {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.Match-show svg {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.Match-expand {
+  margin: 0 0 1rem 0;
+  max-height: 40rem;
+  width: 100%;
+  /* padding: 0.5rem; */
+}
+
+.Match-expand .details {
+  padding: 0.2rem 1rem;
+}
+
+.Match-expand .details hr {
+  margin: 0;
 }

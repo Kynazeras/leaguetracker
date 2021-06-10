@@ -4,14 +4,28 @@ import Match from "../Match/Match";
 // Css
 import "./MatchHistory.css";
 
+const getSummonerObj = (participants, puuid) => {
+  return participants.find((summoner) => summoner.puuid === puuid);
+};
+
 export default class MatchHistory extends Component {
   render() {
-    const { matches } = this.props;
+    const { matches, puuid } = this.props;
     return (
       <div className="MatchHistory">
-        {matches.map((match) => (
-          <Match {...match} />
-        ))}
+        {Array.isArray(matches) ? (
+          <React.Fragment>
+            {matches.map((match) => (
+              <Match
+                key={match.gameId}
+                summonerObj={getSummonerObj(match.participants, puuid)}
+                {...match}
+              />
+            ))}
+          </React.Fragment>
+        ) : (
+          <h1>Match History not found</h1>
+        )}
       </div>
     );
   }

@@ -1,0 +1,34 @@
+.SummonerHeader {
+  height: 15%;
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.SummonerHeader .profile-icon {
+  position: relative;
+}
+
+.SummonerHeader .level {
+  position: absolute;
+  top: -11px;
+  left: 24px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border: 2px solid #3e206d;
+  border-radius: 5px;
+  width: 2rem;
+}
+
+.SummonerHeader img {
+  width: 5rem;
+  height: 5rem;
+  border: 2px solid #414165;
+  border-radius: 5px;
+}
+
+.SummonerHeader h1 {
+  align-self: flex-start;
+  margin-left: 1rem;
+}

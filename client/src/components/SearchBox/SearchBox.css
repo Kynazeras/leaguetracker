@@ -14,9 +14,8 @@
   -moz-border-radius-bottomleft: 25px;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
-  box-shadow: none;
+  box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.19);
   border: none;
-  /* width: 30%; */
   padding: 1.5rem;
   outline: none;
   border: none;
