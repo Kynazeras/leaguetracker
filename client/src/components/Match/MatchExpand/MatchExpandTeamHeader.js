@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 // Css
-import "./MatchExpand.css";
+import './MatchExpand.css';
 
 export default function MatchExpandTeamHeader() {
   return (
-    <div className="MatchExpandTeamHeader">
-      <div className="victory-col">Victory</div>
+    <div className='MatchExpandTeamHeader'>
+      <div className='victory-col'>Victory</div>
       <div>KDA</div>
       <div>Damage</div>
       <div>Gold</div>

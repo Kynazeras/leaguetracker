@@ -8,7 +8,8 @@
     "server": "nodemon server/index.js",
     "client": "cd client && npm run start",
     "iall": "npm i && cd client && npm i",
-    "buildClient": "cd client && npm run build"
+    "buildClient": "cd client && npm run build",
+    "heroku-postbuild": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
