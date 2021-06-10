@@ -1,6 +1,6 @@
 .MatchExpandSummoner {
   display: grid;
-  grid-template-columns: 32% 8% 12% 13% 7% 7% 7% 14%;
+  grid-template-columns: 32% 12% 13% 7% 7% 7% 22%;
   text-align: center;
   justify-content: center;
   align-items: center;

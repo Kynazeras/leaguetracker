@@ -2,16 +2,41 @@ import React from "react";
 // Css
 import "./MatchExpand.css";
 // Constants
-import { champImg } from "../../../constants/util-functions";
+import { champImg, getKDA } from "../../../constants/util-functions";
 
 export default function MatchExpandSummoner({ summoner }) {
   console.log(summoner);
+  const {
+    championName,
+    summonerName,
+    kills,
+    deaths,
+    assists,
+    totalDamageDealtToChampions,
+    totalMinionsKilled,
+    goldEarned,
+    wardsPlaced,
+    item0,
+    item1,
+    item2,
+    item3,
+    item4,
+    item5,
+  } = summoner;
+  const items = [item0, item1, item2, item3, item4, item5];
   return (
     <div className="MatchExpandSummoner">
       <div className="champ">
-        <img src={champImg(summoner.championName)} />
-        <span>{summoner.summonerName}</span>
+        <img src={champImg(championName)} />
+        <span>{summonerName}</span>
       </div>
+      <div className="MatchExpandSummoner-kda">
+        {getKDA(kills, deaths, assists)}
+      </div>
+      <div>{totalDamageDealtToChampions}</div>
+      <div>{goldEarned}</div>
+      <div>{totalMinionsKilled}</div>
+      <div>{wardsPlaced}</div>
     </div>
   );
 }
