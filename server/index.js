@@ -8,15 +8,6 @@ const app = express();
 
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 
-//Serve Client
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-
-  //   app.get('*', (req, res) => {
-  //     res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  //   });
-}
-
 // Routes
 const summonerRoutes = require('./routes/api/summoner');
 const matchRoutes = require('./routes/api/matches');
@@ -25,6 +16,15 @@ const champRoutes = require('./routes/api/champs');
 app.use('/api/summoner', summonerRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/champs', champRoutes);
+
+//Serve Client
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+
+  app.get('*/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+  });
+}
 
 //Set the port that you want the server to run on
 const port = process.env.PORT || 8080;
