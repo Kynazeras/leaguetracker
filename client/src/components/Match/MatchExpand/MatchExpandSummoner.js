@@ -2,7 +2,7 @@ import React from "react";
 // Css
 import "./MatchExpand.css";
 // Constants
-import { champImg, getKDA } from "../../../constants/util-functions";
+import { champImg, getKDA, itemImg } from "../../../constants/util-functions";
 
 export default function MatchExpandSummoner({ summoner }) {
   console.log(summoner);
@@ -27,7 +27,7 @@ export default function MatchExpandSummoner({ summoner }) {
   return (
     <div className="MatchExpandSummoner">
       <div className="champ">
-        <img src={champImg(championName)} />
+        <img src={champImg(championName)} alt={championName} />
         <span>{summonerName}</span>
       </div>
       <div className="MatchExpandSummoner-kda">
@@ -37,6 +37,14 @@ export default function MatchExpandSummoner({ summoner }) {
       <div>{goldEarned}</div>
       <div>{totalMinionsKilled}</div>
       <div>{wardsPlaced}</div>
+      <div>
+        {items.map((item) => (
+          <img
+            style={{ width: "1.5rem", height: "1.5rem" }}
+            src={itemImg(item)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
