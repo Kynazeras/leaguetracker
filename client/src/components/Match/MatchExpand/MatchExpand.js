@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // Components
-import MatchExpandSummoner from "./MatchExpandSummoner";
+import MatchExpandTeam from "./MatchExpandTeam";
+// import MatchExpandSummoner from "./MatchExpandSummoner";
 
 export default class MatchExpand extends Component {
   render() {
@@ -8,7 +9,8 @@ export default class MatchExpand extends Component {
     return (
       <div className={`Match-expand ${win ? "Match-win" : "Match-lose"}`}>
         <div className="details">
-          <MatchExpandSummoner summoner={teams.blueSide[0]} />
+          <MatchExpandTeam team={teams.blueSide} />
+          <MatchExpandTeam team={teams.redSide} />
         </div>
       </div>
     );

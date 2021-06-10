@@ -1,6 +1,7 @@
-.MatchExpandSummoner {
+.MatchExpandSummoner,
+.MatchExpandTeamHeader {
   display: grid;
-  grid-template-columns: 32% 12% 13% 7% 7% 7% 22%;
+  grid-template-columns: 25% 12% 13% 7% 7% 7% 29%;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -9,7 +10,8 @@
   border-radius: 4px;
 }
 
-.MatchExpandSummoner .champ {
+.MatchExpandSummoner .champ,
+.MatchExpandTeamHeader .victory-col {
   display: flex;
   align-items: center;
 }
@@ -18,4 +20,8 @@
   width: 2rem;
   height: 2rem;
   margin-right: 1rem;
+}
+
+.MatchExpandTeam {
+  margin-bottom: 1rem;
 }
