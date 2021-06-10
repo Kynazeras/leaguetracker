@@ -9,7 +9,7 @@
     "client": "cd client && npm run start",
     "iall": "npm i && cd client && npm i",
     "buildClient": "cd client && npm run build",
-    "heroku-postbuild": "cd client && npm run build"
+    "heroku-postbuild": "cd client && npm i && npm run build"
   },
   "keywords": [],
   "author": "",
