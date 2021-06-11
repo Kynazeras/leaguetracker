@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// React - Router
+import { Redirect } from 'react-router-dom';
 // axios
 import axios from 'axios';
 // Components
@@ -43,12 +45,14 @@ export default class SummonerDetails extends Component {
       bestChampImg: '',
       bestChampLvl: '',
       bestChampPoints: '',
+      error: false,
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
     this.getMatchHistory = this.getMatchHistory.bind(this);
     this.getRankedInfo = this.getRankedInfo.bind(this);
     this.getChampMastery = this.getChampMastery.bind(this);
+    this.setError = this.setError.bind(this);
   }
 
   componentDidMount() {
@@ -79,24 +83,37 @@ export default class SummonerDetails extends Component {
       })
       .catch((err) => {
         console.log(err.message);
+        this.setError(true);
       });
   }
 
   getMatchHistory(region, puuid) {
-    axios.get(`/api/matches/${region}/bySummonerId/${puuid}`).then((res) => {
-      this.setState({
-        matches: res.data,
-        loading: false,
+    axios
+      .get(`/api/matches/${region}/bySummonerId/${puuid}`)
+      .then((res) => {
+        this.setState({
+          matches: res.data,
+          loading: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        this.setError(true);
       });
-    });
   }
 
   getRankedInfo(region, id) {
-    axios.get(`/api/summoner/rank/${region}/${id}`).then((res) => {
-      this.setState({
-        rankDetails: res.data[0],
+    axios
+      .get(`/api/summoner/rank/${region}/${id}`)
+      .then((res) => {
+        this.setState({
+          rankDetails: res.data[0],
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        this.setError(true);
       });
-    });
   }
 
   // Winrate chart
@@ -116,8 +133,15 @@ export default class SummonerDetails extends Component {
         bestChampPoints: championPoints,
       });
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
+      this.setError(true);
     }
+  }
+
+  setError(bool) {
+    this.setState({
+      error: true,
+    });
   }
 
   render() {
@@ -132,8 +156,13 @@ export default class SummonerDetails extends Component {
       bestChampImg,
       bestChampLvl,
       bestChampPoints,
+      error,
     } = this.state;
     const summonerName = match.params.summonerName;
+
+    if (error) {
+      return <Redirect to='/Error' />;
+    }
     return (
       <ErrorBoundary>
         <div className='SummonerDetails'>

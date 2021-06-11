@@ -26,8 +26,9 @@ export default function MatchExpandSummoner({ summoner }) {
     item3,
     item4,
     item5,
+    item6,
   } = summoner;
-  const items = [item0, item1, item2, item3, item4, item5];
+  const items = [item0, item1, item2, item3, item4, item5, item6];
   return (
     <div className='MatchExpandSummoner'>
       <div className='champ'>
