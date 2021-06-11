@@ -1,11 +1,15 @@
-import React from "react";
+import React from 'react';
 // Css
-import "./MatchExpand.css";
+import './MatchExpand.css';
 // Constants
-import { champImg, getKDA, itemImg } from "../../../constants/util-functions";
+import {
+  champImg,
+  getKDA,
+  itemImg,
+  numberWithCommas,
+} from '../../../constants/util-functions';
 
 export default function MatchExpandSummoner({ summoner }) {
-  console.log(summoner);
   const {
     championName,
     summonerName,
@@ -25,24 +29,31 @@ export default function MatchExpandSummoner({ summoner }) {
   } = summoner;
   const items = [item0, item1, item2, item3, item4, item5];
   return (
-    <div className="MatchExpandSummoner">
-      <div className="champ">
+    <div className='MatchExpandSummoner'>
+      <div className='champ'>
         <img src={champImg(championName)} alt={championName} />
         <span>{summonerName}</span>
       </div>
-      <div className="MatchExpandSummoner-kda">
-        {getKDA(kills, deaths, assists)}
+      <div className='MatchExpandSummoner-kda'>
+        <span>
+          {kills}/{deaths}/{assists}
+        </span>
+        <span>{getKDA(kills, deaths, assists)} KDA</span>
       </div>
-      <div>{totalDamageDealtToChampions}</div>
-      <div>{goldEarned}</div>
+      <div>{numberWithCommas(totalDamageDealtToChampions)}</div>
+      <div>{numberWithCommas(goldEarned)}</div>
       <div>{totalMinionsKilled}</div>
       <div>{wardsPlaced}</div>
       <div>
         {items.map((item) => (
-          <img
-            style={{ width: "1.5rem", height: "1.5rem" }}
-            src={itemImg(item)}
-          />
+          <React.Fragment>
+            {item ? (
+              <img
+                style={{ width: '1.5rem', height: '1.5rem' }}
+                src={itemImg(item)}
+              />
+            ) : null}
+          </React.Fragment>
         ))}
       </div>
     </div>

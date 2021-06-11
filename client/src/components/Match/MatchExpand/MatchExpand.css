@@ -8,6 +8,7 @@
   padding: 6px 0;
   margin-bottom: 4px;
   border-radius: 4px;
+  font-size: 0.8em;
 }
 
 .MatchExpandSummoner .champ,
@@ -24,4 +25,9 @@
 
 .MatchExpandTeam {
   margin-bottom: 1rem;
+}
+
+.MatchExpandSummoner-kda {
+  display: flex;
+  flex-direction: column;
 }

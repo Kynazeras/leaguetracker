@@ -1,24 +1,26 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // axios
-import axios from "axios";
+import axios from 'axios';
 // Components
-import SummonerHeader from "../../components/SummonerDetails/SummonerHeader/SummonerHeader";
-import MatchHistory from "../../components/MatchHistory/MatchHistory";
-import Rank from "../../components/SummonerDetails/Rank/Rank";
+import SummonerHeader from '../../components/SummonerDetails/SummonerHeader/SummonerHeader';
+import MatchHistory from '../../components/MatchHistory/MatchHistory';
+import Rank from '../../components/SummonerDetails/Rank/Rank';
 // Css
-import "./SummonerDetails.css";
+import './SummonerDetails.css';
 // Constants
-import { numberWithCommas } from "../../constants/util-functions";
+import { numberWithCommas } from '../../constants/util-functions';
+// Error Boundary
+import ErrorBoundary from '../../ErrorBoundary';
 
 const LoadingDiv = () => (
   <div
     style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     }}
   >
-    <img src="https://i.gifer.com/PX6F.gif" alt="spinner" />
+    <img src='https://i.gifer.com/PX6F.gif' alt='spinner' />
   </div>
 );
 
@@ -31,16 +33,16 @@ export default class SummonerDetails extends Component {
     super(props);
 
     this.state = {
-      puuid: "",
-      summonerLevel: "",
-      profileIconId: "",
+      puuid: '',
+      summonerLevel: '',
+      profileIconId: '',
       champions: [],
       matches: [],
       loading: true,
       rankDetails: null,
-      bestChampImg: "",
-      bestChampLvl: "",
-      bestChampPoints: "",
+      bestChampImg: '',
+      bestChampLvl: '',
+      bestChampPoints: '',
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
@@ -56,26 +58,32 @@ export default class SummonerDetails extends Component {
   getSummonerDetails() {
     const { match } = this.props;
     const summonerName = match.params.summonerName;
-    axios.get(`/api/summoner/details/${summonerName}`).then((res) => {
-      const data = res.data;
-      const { puuid, summonerLevel, id, profileIconId } = data;
-      this.setState(
-        {
-          puuid,
-          summonerLevel,
-          profileIconId,
-        },
-        () => {
-          this.getRankedInfo(id);
-          this.getChampMastery(id);
-          this.getMatchHistory(this.state.puuid);
-        }
-      );
-    });
+    const region = match.params.region;
+    axios
+      .get(`/api/summoner/details/${region}/${summonerName}`)
+      .then((res) => {
+        const data = res.data;
+        const { puuid, summonerLevel, id, profileIconId } = data;
+        this.setState(
+          {
+            puuid,
+            summonerLevel,
+            profileIconId,
+          },
+          () => {
+            this.getRankedInfo(region, id);
+            this.getChampMastery(region, id);
+            this.getMatchHistory(region, this.state.puuid);
+          }
+        );
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 
-  getMatchHistory(puuid) {
-    axios.get(`/api/matches/bySummonerId/${puuid}`).then((res) => {
+  getMatchHistory(region, puuid) {
+    axios.get(`/api/matches/${region}/bySummonerId/${puuid}`).then((res) => {
       this.setState({
         matches: res.data,
         loading: false,
@@ -83,8 +91,8 @@ export default class SummonerDetails extends Component {
     });
   }
 
-  getRankedInfo(id) {
-    axios.get(`/api/summoner/rank/${id}`).then((res) => {
+  getRankedInfo(region, id) {
+    axios.get(`/api/summoner/rank/${region}/${id}`).then((res) => {
       this.setState({
         rankDetails: res.data[0],
       });
@@ -94,16 +102,22 @@ export default class SummonerDetails extends Component {
   // Winrate chart
 
   // Top Champs
-  async getChampMastery(id) {
-    const champMasteries = await axios.get(`/api/summoner/mastery/${id}`);
-    const bestChamp = champMasteries.data[0];
-    const { championId, championLevel, championPoints } = bestChamp;
-    const champImg = await axios.get(`/api/champs/img/${championId}`);
-    this.setState({
-      bestChampImg: champImg.data,
-      bestChampLvl: championLevel,
-      bestChampPoints: championPoints,
-    });
+  async getChampMastery(region, id) {
+    try {
+      const champMasteries = await axios.get(
+        `/api/summoner/mastery/${region}/${id}`
+      );
+      const bestChamp = champMasteries.data[0];
+      const { championId, championLevel, championPoints } = bestChamp;
+      const champImg = await axios.get(`/api/champs/img/${championId}`);
+      this.setState({
+        bestChampImg: champImg.data,
+        bestChampLvl: championLevel,
+        bestChampPoints: championPoints,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
@@ -121,60 +135,64 @@ export default class SummonerDetails extends Component {
     } = this.state;
     const summonerName = match.params.summonerName;
     return (
-      <div className="SummonerDetails">
-        <SummonerHeader
-          getProfileIcon={getProfileIcon}
-          profileIconId={profileIconId}
-          summonerName={summonerName}
-          summonerLevel={summonerLevel}
-        />
-        {loading ? (
-          <LoadingDiv />
-        ) : (
-          <div className="container">
-            <section className="rank-container">
-              <div className="box Rank">
-                <Rank {...rankDetails} />
-              </div>
-              <div className="box">
-                <h2>Winrate</h2>
-                <hr />
-              </div>
-              <div className="box">
-                <h2>Best Champ</h2>
-                <hr />
-                {bestChampImg && (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={bestChampImg}
-                      alt="best champion"
+      <ErrorBoundary>
+        <div className='SummonerDetails'>
+          <SummonerHeader
+            getProfileIcon={getProfileIcon}
+            profileIconId={profileIconId}
+            summonerName={summonerName}
+            summonerLevel={summonerLevel}
+          />
+          {loading ? (
+            <LoadingDiv />
+          ) : (
+            <div className='container'>
+              <section className='rank-container'>
+                <div className='box Rank'>
+                  <Rank {...rankDetails} />
+                </div>
+                <div className='box'>
+                  <h2>Winrate</h2>
+                  <hr />
+                </div>
+                <div className='box'>
+                  <h2>Best Champ</h2>
+                  <hr />
+                  {bestChampImg && (
+                    <div
                       style={{
-                        height: "5rem",
-                        width: "5rem",
-                        marginRight: "1rem",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}
-                    />
-                    <div>
-                      <p>Mastery Level: {bestChampLvl}</p>
-                      <p>Mastery Points: {numberWithCommas(bestChampPoints)}</p>
+                    >
+                      <img
+                        src={bestChampImg}
+                        alt='best champion'
+                        style={{
+                          height: '5rem',
+                          width: '5rem',
+                          marginRight: '1rem',
+                        }}
+                      />
+                      <div>
+                        <p>Mastery Level: {bestChampLvl}</p>
+                        <p>
+                          Mastery Points: {numberWithCommas(bestChampPoints)}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-              <div className="empty"></div>
-            </section>
-            <section className="SummonerDetails-MatchHistory">
-              <MatchHistory matches={matches} puuid={puuid} />
-            </section>
-          </div>
-        )}
-      </div>
+                  )}
+                </div>
+                <div className='empty'></div>
+              </section>
+              <section className='SummonerDetails-MatchHistory'>
+                <MatchHistory matches={matches} puuid={puuid} />
+              </section>
+            </div>
+          )}
+        </div>
+      </ErrorBoundary>
     );
   }
 }

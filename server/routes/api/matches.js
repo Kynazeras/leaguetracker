@@ -1,20 +1,20 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const axios = require("axios");
+const axios = require('axios');
 
-const env = require("dotenv").config();
+const env = require('dotenv').config();
 // API Strings
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 const matchesV5ApiKeyString = `&api_key=${process.env.RIOT_API_KEY}`;
 
-router.get("/bySummonerId/:puuid", async (req, res) => {
-  const { puuid } = req.params;
+router.get('/:region/bySummonerId/:puuid', async (req, res) => {
+  const { region, puuid } = req.params;
   try {
-    const summonerMatchDetails = await getSummonerMatchDetails(puuid);
+    const summonerMatchDetails = await getSummonerMatchDetails(region, puuid);
     const matchArray = summonerMatchDetails.data;
     let allMatchData = [];
-    let promises = gatherMatchPromises(matchArray, allMatchData);
+    let promises = gatherMatchPromises(region, matchArray, allMatchData);
     Promise.all(promises)
       .then((results) => {
         res.send(allMatchData);
@@ -23,28 +23,31 @@ router.get("/bySummonerId/:puuid", async (req, res) => {
         res.send(err);
       });
   } catch {
-    res.send("this did not work out");
+    res.status(404).send('Match details cannot be retrieved at this time');
   }
 });
 
 // Functions
-const getSummonerMatchDetails = (puuid) => {
+const getSummonerMatchDetails = (region, puuid) => {
+  const routingRegion = region === 'na1' ? 'americas' : 'asia';
+  console.log(routingRegion);
   return axios.get(
-    `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10${matchesV5ApiKeyString}`
+    `https://${routingRegion}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10${matchesV5ApiKeyString}`
   );
 };
 
-const getMatchDetails = (matchId) => {
+const getMatchDetails = (region, matchId) => {
+  const routingRegion = region === 'na1' ? 'americas' : 'asia';
   return axios.get(
-    `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
+    `https://${routingRegion}.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
   );
 };
 
-const gatherMatchPromises = (matchArr, dataArr) => {
+const gatherMatchPromises = (region, matchArr, dataArr) => {
   let promises = [];
   matchArr.forEach((match) =>
     promises.push(
-      getMatchDetails(match).then((response) => {
+      getMatchDetails(region, match).then((response) => {
         dataArr.push(response.data.info);
       })
     )
