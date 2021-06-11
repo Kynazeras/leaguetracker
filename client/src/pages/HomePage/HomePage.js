@@ -1,15 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // Components
-import SearchBox from "../../components/SearchBox/SearchBox";
+import SearchBox from '../../components/SearchBox/SearchBox';
 // Styles
-import "./Homepage.css";
+import './Homepage.css';
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      summonerName: "Kynazeras",
+      summonerName: '',
+      region: 'na1',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,15 +29,16 @@ export default class HomePage extends Component {
   }
 
   render() {
-    const { summonerName } = this.state;
+    const { summonerName, region } = this.state;
     return (
-      <div className="Homepage">
+      <div className='Homepage'>
         <img
-          src="https://play-lh.googleusercontent.com/UdvXlkugn0bJcwiDkqHKG5IElodmv-oL4kHlNAklSA2sdlVWhojsZKaPE-qFPueiZg"
-          alt="op.gg logo"
+          src='https://play-lh.googleusercontent.com/UdvXlkugn0bJcwiDkqHKG5IElodmv-oL4kHlNAklSA2sdlVWhojsZKaPE-qFPueiZg'
+          alt='op.gg logo'
         />
         <SearchBox
           summonerName={summonerName}
+          region={region}
           handleChange={this.handleChange}
         />
       </div>

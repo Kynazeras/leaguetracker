@@ -22,7 +22,7 @@
   border-radius: 2px;
 }
 
-.Searchbox a {
+.Searchbox .Searchbox-options {
   padding-right: 50px;
   background-color: #fff;
   box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.19);
@@ -32,7 +32,17 @@
   text-decoration: none;
 }
 
-.Searchbox a span {
+/* .Searchbox .Searchbox-options a {
+  padding-right: 50px;
+  background-color: #fff;
+  box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.19);
+  border: none;
+  cursor: pointer;
+  cursor: hand;
+  text-decoration: none;
+} */
+
+.Searchbox .Searchbox-options a span {
   margin-left: 50px;
   padding: 10px 20px;
   position: absolute;

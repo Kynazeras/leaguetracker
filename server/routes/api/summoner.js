@@ -1,47 +1,46 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const axios = require("axios");
+const axios = require('axios');
 
-const env = require("dotenv").config();
+const env = require('dotenv').config();
 const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 
-const champMasteryUrl = (summonerId) =>
-  `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/${apiKeyString}`;
-
-router.get("/details/:summonerName", async (req, res) => {
-  const { summonerName } = req.params;
-  const summonerDetails = await getSummonerDetails(summonerName);
+router.get('/details/:region/:summonerName', async (req, res) => {
+  const { region, summonerName } = req.params;
+  const summonerDetails = await getSummonerDetails(region, summonerName).catch(
+    (err) => res.status(404).send('Summoner Not Found')
+  );
   res.send(summonerDetails.data);
 });
 
-router.get("/rank/:summonerId", async (req, res) => {
-  const { summonerId } = req.params;
-  const summonerRank = await getSummonerRank(summonerId);
+router.get('/rank/:region/:summonerId', async (req, res) => {
+  const { region, summonerId } = req.params;
+  const summonerRank = await getSummonerRank(region, summonerId);
   res.json(summonerRank.data);
 });
 
-router.get("/mastery/:summonerId", async (req, res) => {
-  const { summonerId } = req.params;
-  const summonerMastery = await getSummonerMastery(summonerId);
+router.get('/mastery/:region/:summonerId', async (req, res) => {
+  const { region, summonerId } = req.params;
+  const summonerMastery = await getSummonerMastery(region, summonerId);
   res.json(summonerMastery.data.slice(0, 5));
 });
 
-const getSummonerDetails = (summonerName) => {
+const getSummonerDetails = (region, summonerName) => {
   return axios.get(
-    `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}${apiKeyString}`
+    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}${apiKeyString}`
   );
 };
 
-const getSummonerRank = (summonerId) => {
+const getSummonerRank = (region, summonerId) => {
   return axios.get(
-    `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}${apiKeyString}`
+    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}${apiKeyString}`
   );
 };
 
-const getSummonerMastery = (summonerId) => {
+const getSummonerMastery = (region, summonerId) => {
   return axios.get(
-    `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/${apiKeyString}`
+    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/${apiKeyString}`
   );
 };
 

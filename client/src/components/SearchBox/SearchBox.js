@@ -1,24 +1,27 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // React Router
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 // Styles
-import "./SearchBox.css";
+import './SearchBox.css';
 
 export default class SearchBox extends Component {
   render() {
-    const { summonerName, handleChange } = this.props;
+    const { summonerName, handleChange, region } = this.props;
     return (
-      <div className="Searchbox">
+      <div className='Searchbox'>
         <input
-          type="text"
+          type='text'
           value={summonerName}
           onChange={handleChange}
-          placeholder="Type Name here"
-          name="summonerName"
+          placeholder='Type Name here'
+          name='summonerName'
         />
-        <Link to={`/summoner/${summonerName}`}>
-          <span>GG</span>
-        </Link>
+        <div className='Searchbox-options'>
+          <div style={{ color: 'red' }}>TEST</div>
+          <Link to={`/${region}/summoner/${summonerName}`}>
+            <span>GG</span>
+          </Link>
+        </div>
       </div>
     );
   }
