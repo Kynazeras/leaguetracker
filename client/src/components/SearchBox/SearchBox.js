@@ -17,7 +17,7 @@ export default class SearchBox extends Component {
           name='summonerName'
         />
         <div className='Searchbox-options'>
-          <div style={{ color: 'red' }}>TEST</div>
+          {/* <div style={{ color: 'red' }}>TEST</div> */}
           <Link to={`/${region}/summoner/${summonerName}`}>
             <span>GG</span>
           </Link>
