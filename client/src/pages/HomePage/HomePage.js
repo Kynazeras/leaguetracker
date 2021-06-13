@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 import SearchBox from '../../components/SearchBox/SearchBox';
 // Styles
 import './Homepage.css';
+// Images
+import logo from '../../images/lolme.png';
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      summonerName: '',
+      summonerName: 'Kynazeras',
       region: 'na1',
     };
 
@@ -33,7 +35,8 @@ export default class HomePage extends Component {
     return (
       <div className='Homepage'>
         <img
-          src='https://play-lh.googleusercontent.com/UdvXlkugn0bJcwiDkqHKG5IElodmv-oL4kHlNAklSA2sdlVWhojsZKaPE-qFPueiZg'
+          // src='https://play-lh.googleusercontent.com/UdvXlkugn0bJcwiDkqHKG5IElodmv-oL4kHlNAklSA2sdlVWhojsZKaPE-qFPueiZg'
+          src={logo}
           alt='op.gg logo'
         />
         <SearchBox

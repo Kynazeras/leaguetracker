@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   padding-top: 1rem;
+  color: #0b1354;
 }
 
 .SummonerHeader .profile-icon {
@@ -29,6 +30,6 @@
 }
 
 .SummonerHeader h1 {
-  align-self: flex-start;
+  /* align-self: flex-start; */
   margin-left: 1rem;
 }
