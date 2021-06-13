@@ -8,10 +8,12 @@ const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
 
 router.get('/details/:region/:summonerName', async (req, res) => {
   const { region, summonerName } = req.params;
-  const summonerDetails = await getSummonerDetails(region, summonerName).catch(
-    (err) => res.status(404).send('Summoner Not Found')
-  );
-  res.send(summonerDetails.data);
+  try {
+    const summonerDetails = await getSummonerDetails(region, summonerName);
+    res.send(summonerDetails.data);
+  } catch (err) {
+    res.status(404).send({ message: 'Summoner Not Found' });
+  }
 });
 
 router.get('/rank/:region/:summonerId', async (req, res) => {

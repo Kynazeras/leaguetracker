@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // Components
-import Match from "../Match/Match";
+import Match from '../Match/Match';
 // Css
-import "./MatchHistory.css";
+import './MatchHistory.css';
+// Infinite Scroll
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const getSummonerObj = (participants, puuid) => {
   return participants.find((summoner) => summoner.puuid === puuid);
@@ -10,11 +12,16 @@ const getSummonerObj = (participants, puuid) => {
 
 export default class MatchHistory extends Component {
   render() {
-    const { matches, puuid } = this.props;
+    const { matches, puuid, scrollLoadMore, hasMore } = this.props;
     return (
-      <div className="MatchHistory">
-        {Array.isArray(matches) ? (
-          <React.Fragment>
+      <div className='MatchHistory'>
+        {matches.length > 0 ? (
+          <InfiniteScroll
+            dataLength={matches.length}
+            next={scrollLoadMore}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+          >
             {matches.map((match) => (
               <Match
                 key={match.gameId}
@@ -22,9 +29,9 @@ export default class MatchHistory extends Component {
                 {...match}
               />
             ))}
-          </React.Fragment>
+          </InfiniteScroll>
         ) : (
-          <h1>Match History not found</h1>
+          <h1 style={{ textAlign: 'center' }}>Match History not found 😢</h1>
         )}
       </div>
     );

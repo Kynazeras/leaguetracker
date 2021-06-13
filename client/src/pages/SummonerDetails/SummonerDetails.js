@@ -7,6 +7,7 @@ import axios from 'axios';
 import SummonerHeader from '../../components/SummonerDetails/SummonerHeader/SummonerHeader';
 import MatchHistory from '../../components/MatchHistory/MatchHistory';
 import Rank from '../../components/SummonerDetails/Rank/Rank';
+import SummonerNotFound from '../../components/SummonerNotFound/SummonerNotFound';
 // Css
 import './SummonerDetails.css';
 // Constants
@@ -46,6 +47,10 @@ export default class SummonerDetails extends Component {
       bestChampLvl: '',
       bestChampPoints: '',
       error: false,
+      start: 0,
+      region: '',
+      hasMore: true,
+      summonerNotFound: false,
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
@@ -53,6 +58,7 @@ export default class SummonerDetails extends Component {
     this.getRankedInfo = this.getRankedInfo.bind(this);
     this.getChampMastery = this.getChampMastery.bind(this);
     this.setError = this.setError.bind(this);
+    this.scrollLoadMore = this.scrollLoadMore.bind(this);
   }
 
   componentDidMount() {
@@ -73,27 +79,37 @@ export default class SummonerDetails extends Component {
             puuid,
             summonerLevel,
             profileIconId,
+            region: region,
           },
           () => {
             this.getRankedInfo(region, id);
             this.getChampMastery(region, id);
-            this.getMatchHistory(region, this.state.puuid);
+            this.getMatchHistory();
           }
         );
       })
       .catch((err) => {
-        console.log(err.message);
-        this.setError(true);
+        console.log(err.response.status);
+        if (err.response.status === 404) {
+          this.setState({
+            summonerNotFound: true,
+          });
+        } else {
+          this.setError(true);
+        }
       });
   }
 
-  getMatchHistory(region, puuid) {
+  getMatchHistory() {
+    const { matches, start, puuid, region } = this.state;
     axios
-      .get(`/api/matches/${region}/bySummonerId/${puuid}`)
+      .get(`/api/matches/${region}/bySummonerId/${puuid}/${start}`)
       .then((res) => {
+        console.log(res.data);
         this.setState({
-          matches: res.data,
+          matches: Array.isArray(res.data) ? res.data : [],
           loading: false,
+          // start: start + 10,
         });
       })
       .catch((err) => {
@@ -140,8 +156,22 @@ export default class SummonerDetails extends Component {
 
   setError(bool) {
     this.setState({
-      error: true,
+      error: bool,
     });
+  }
+
+  scrollLoadMore() {
+    const { matches } = this.state;
+    this.setState(
+      {
+        matches: [...matches, ...matches],
+      },
+      () => {
+        this.setState({
+          hasMore: false,
+        });
+      }
+    );
   }
 
   render() {
@@ -157,9 +187,14 @@ export default class SummonerDetails extends Component {
       bestChampLvl,
       bestChampPoints,
       error,
+      hasMore,
+      summonerNotFound,
     } = this.state;
     const summonerName = match.params.summonerName;
 
+    if (summonerNotFound) {
+      return <SummonerNotFound summonerName={summonerName} />;
+    }
     if (error) {
       return <Redirect to='/Error' />;
     }
@@ -215,8 +250,16 @@ export default class SummonerDetails extends Component {
                 </div>
                 <div className='empty'></div>
               </section>
-              <section className='SummonerDetails-MatchHistory'>
-                <MatchHistory matches={matches} puuid={puuid} />
+              <section
+                className='SummonerDetails-MatchHistory'
+                hasMore={hasMore}
+              >
+                <MatchHistory
+                  matches={matches}
+                  puuid={puuid}
+                  scrollLoadMore={this.scrollLoadMore}
+                  hasMore={false}
+                />
               </section>
             </div>
           )}

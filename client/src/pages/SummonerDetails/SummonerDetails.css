@@ -5,7 +5,7 @@
   flex-direction: column;
   margin-left: 10%;
   margin-right: 10%;
-  color: black;
+  /* color: black; */
 }
 
 .SummonerDetails .container {
@@ -14,7 +14,7 @@
   grid-template-columns: 312px 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
-  grid-template-areas: ". .";
+  grid-template-areas: '. .';
   gap: 1em;
 }
 
@@ -24,17 +24,21 @@
   grid-template-rows: repeat(auto-fit, minmax(0, min-content));
   gap: 0px 0px;
   grid-template-areas:
-    "."
-    "."
-    "."
-    ".";
+    '.'
+    '.'
+    '.'
+    '.';
   gap: 1.5em;
 }
 
 .rank-container .box {
   padding: 0.5rem 2rem;
-  background-color: #d7fbe8;
+  background-color: rgba(161, 85, 185, 0.7);
   height: 100%;
+}
+
+.rank-container .box hr {
+  color: #0b1354;
 }
 
 .rank-container .box .info {
@@ -80,8 +84,8 @@
     grid-template-rows: 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-      ". ."
-      ". .";
+      '. .'
+      '. .';
     grid-gap: 1.5em;
     width: 100%;
     margin-bottom: 1rem;

@@ -4,7 +4,7 @@
   height: 100px;
   display: flex;
   align-items: center;
-  color: black;
+  /* color: black; */
   padding: 0 0.5rem;
   /* -webkit-box-shadow: 5px 5px 15px 5px #000000;
   box-shadow: 5px 5px 15px 5px #000000; */
@@ -15,11 +15,23 @@
 }
 
 .Match-win {
-  background-color: #d7fbe8;
+  background: rgb(22, 91, 170);
+  background: linear-gradient(
+    90deg,
+    rgba(22, 91, 170, 0.85) 0%,
+    rgba(161, 85, 185, 0.85) 50%,
+    rgba(22, 91, 170, 0.85) 100%
+  );
 }
 
 .Match-lose {
-  background-color: #ff96ad;
+  background: rgb(161, 85, 185);
+  background: linear-gradient(
+    90deg,
+    rgba(161, 85, 185, 0.85) 0%,
+    rgba(247, 101, 163, 0.85) 50%,
+    rgba(161, 85, 185, 0.85) 100%
+  );
 }
 
 .Match-details {
@@ -134,6 +146,7 @@
 .Match-show svg {
   cursor: pointer;
   font-size: 1.5rem;
+  color: #0b1354;
 }
 
 .Match-expand {
@@ -149,4 +162,5 @@
 
 .Match-expand .details hr {
   margin: 0;
+  color: #0b1354;
 }

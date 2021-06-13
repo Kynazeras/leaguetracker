@@ -90,3 +90,9 @@ export const getGameTime = (duration) => {
 export const numberWithCommas = (num) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export const sortArrayByTimestamp = (arr, timestampField) => {
+  arr.sort(function (x, y) {
+    return x[timestampField] - y[timestampField];
+  });
+};
