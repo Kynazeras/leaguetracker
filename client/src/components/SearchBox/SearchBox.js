@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 // React Router
 import { Link } from 'react-router-dom';
+// React Select
+import Select from 'react-select';
 // Styles
 import './SearchBox.css';
 
 export default class SearchBox extends Component {
   render() {
-    const { summonerName, handleChange, region } = this.props;
+    const { summonerName, handleChange, region, options, handleRegionChange } =
+      this.props;
     return (
       <div className='Searchbox'>
         <input
@@ -17,8 +20,16 @@ export default class SearchBox extends Component {
           name='summonerName'
         />
         <div className='Searchbox-options'>
-          {/* <div style={{ color: 'red' }}>TEST</div> */}
-          <Link to={`/${region}/summoner/${summonerName}`}>
+          <div className='region'>
+            <Select
+              options={options}
+              placeholder='Region'
+              value={region}
+              onChange={handleRegionChange}
+              className='react-select'
+            />
+          </div>
+          <Link to={`/${region.value}/summoner/${summonerName}`}>
             <span>ME</span>
           </Link>
         </div>

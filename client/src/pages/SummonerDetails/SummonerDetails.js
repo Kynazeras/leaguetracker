@@ -14,6 +14,8 @@ import './SummonerDetails.css';
 import { numberWithCommas } from '../../constants/util-functions';
 // Error Boundary
 import ErrorBoundary from '../../ErrorBoundary';
+// Spinner
+import Spinner from 'react-spinkit';
 
 const LoadingDiv = () => (
   <div
@@ -23,7 +25,7 @@ const LoadingDiv = () => (
       alignItems: 'center',
     }}
   >
-    <img src='https://i.gifer.com/PX6F.gif' alt='spinner' />
+    <Spinner name='ball-pulse-rise' color='#0b1354' />
   </div>
 );
 
@@ -215,10 +217,10 @@ export default class SummonerDetails extends Component {
                 <div className='box Rank'>
                   <Rank {...rankDetails} />
                 </div>
-                <div className='box'>
+                {/* <div className='box'>
                   <h2>Winrate</h2>
                   <hr />
-                </div>
+                </div> */}
                 <div className='box'>
                   <h2>Best Champ</h2>
                   <hr />

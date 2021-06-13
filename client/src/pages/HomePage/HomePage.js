@@ -5,23 +5,33 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 import './Homepage.css';
 // Images
 import logo from '../../images/lolme.png';
+// Constants
+import { regionOptions } from '../../constants/util-functions';
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      summonerName: 'Kynazeras',
-      region: 'na1',
+      summonerName: 'Hide on bush',
+      region: { value: 'na1', label: 'NA' },
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleRegionChange = this.handleRegionChange.bind(this);
   }
 
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
+    });
+  }
+
+  handleRegionChange(selectedOption) {
+    console.log(selectedOption);
+    this.setState({
+      region: selectedOption,
     });
   }
 
@@ -43,6 +53,8 @@ export default class HomePage extends Component {
           summonerName={summonerName}
           region={region}
           handleChange={this.handleChange}
+          handleRegionChange={this.handleRegionChange}
+          options={regionOptions}
         />
       </div>
     );

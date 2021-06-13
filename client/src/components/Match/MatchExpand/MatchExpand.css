@@ -11,6 +11,11 @@
   font-size: 0.8em;
 }
 
+.MatchExpandSummoner {
+  border: 2px solid var(--blue);
+  padding: 0.5rem;
+}
+
 .MatchExpandSummoner .champ,
 .MatchExpandTeamHeader .victory-col {
   display: flex;

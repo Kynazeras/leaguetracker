@@ -96,3 +96,17 @@ export const sortArrayByTimestamp = (arr, timestampField) => {
     return x[timestampField] - y[timestampField];
   });
 };
+
+export const regionOptions = [
+  { value: 'br1', label: 'BR' },
+  { value: 'eun1', label: 'EUN' },
+  { value: 'euw1', label: 'EUW' },
+  { value: 'jp1', label: 'JP' },
+  { value: 'kr', label: 'KR' },
+  { value: 'la1', label: 'LAN' },
+  { value: 'la2', label: 'LAS' },
+  { value: 'na1', label: 'NA' },
+  { value: 'oc1', label: 'OC' },
+  { value: 'tr1', label: 'TR' },
+  { value: 'ru', label: 'RU' },
+];
