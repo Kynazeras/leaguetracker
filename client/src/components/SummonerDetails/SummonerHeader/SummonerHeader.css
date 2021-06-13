@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   padding-top: 1rem;
-  color: #0b1354;
+  color: var(--darkblue);
 }
 
 .SummonerHeader .profile-icon {

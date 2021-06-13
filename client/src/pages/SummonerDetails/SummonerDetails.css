@@ -38,7 +38,7 @@
 }
 
 .rank-container .box hr {
-  color: #0b1354;
+  color: var(--darkblue);
 }
 
 .rank-container .box .info {

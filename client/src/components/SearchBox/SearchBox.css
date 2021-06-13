@@ -32,15 +32,17 @@
   text-decoration: none;
 }
 
-/* .Searchbox .Searchbox-options a {
-  padding-right: 50px;
-  background-color: #fff;
-  box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.19);
-  border: none;
-  cursor: pointer;
-  cursor: hand;
-  text-decoration: none;
-} */
+.Searchbox .Searchbox-options .region {
+  color: black;
+  position: absolute;
+  right: 100px;
+  top: 15px;
+  width: 7rem;
+}
+
+.Searchbox .Searchbox-options .region .react-select * {
+  border-radius: 0;
+}
 
 .Searchbox .Searchbox-options a span {
   margin-left: 50px;
@@ -52,7 +54,7 @@
   text-transform: uppercase;
   font-weight: bold;
   color: #fff;
-  background-color: #a155b9;
+  background-color: var(--purple);
 
   /* border-radius: 20px; */
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.19);
