@@ -11,18 +11,17 @@
 
 .Match.expanded {
   margin-bottom: 0rem;
+  border-bottom: 0;
 }
 
 .Match-win {
-  background-color: var(--winBg);
-  /* background: rgb(22, 91, 170); */
-  /* background: var(--wingradient); */
+  background: rgb(176, 239, 235);
+  border: 1px solid rgb(10, 99, 94);
 }
 
 .Match-lose {
-  background-color: var(--loseBg);
-  /* background: rgb(161, 85, 185);
-  background: var(--losegradient); */
+  background: rgb(253, 186, 248);
+  border: 1px solid rgb(107, 5, 100);
 }
 
 .Match-details {
@@ -143,7 +142,6 @@
 .Match-expand {
   margin: 0 0 1rem 0;
   max-height: 40rem;
-  width: 100%;
 }
 
 .Match-expand .details {
