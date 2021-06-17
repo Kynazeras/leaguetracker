@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // Css
-import "./Match.css";
+import './Match.css';
 // Util functions
 import {
   timeDifference,
@@ -8,16 +8,16 @@ import {
   getKDA,
   getTeams,
   getGameTime,
-} from "../../constants/util-functions";
+} from '../../constants/util-functions';
 // Components
-import MatchType from "./MatchType";
-import Champ from "./MatchChamp";
-import MatchKDA from "./MatchKDA";
-import MatchItems from "./MatchItems";
-import MatchTeams from "./MatchTeams";
+import MatchType from './MatchType';
+import Champ from './MatchChamp';
+import MatchKDA from './MatchKDA';
+import MatchItems from './MatchItems';
+import MatchTeams from './MatchTeams';
 // Icons
-import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
-import MatchExpand from "./MatchExpand/MatchExpand";
+import { FaArrowAltCircleDown, FaArrowAltCircleUp } from 'react-icons/fa';
+import MatchExpand from './MatchExpand/MatchExpand';
 
 export default class Match extends Component {
   constructor(props) {
@@ -60,11 +60,11 @@ export default class Match extends Component {
     return (
       <div>
         <div
-          className={`Match ${win ? "Match-win" : "Match-lose"} ${
-            show ? "expanded" : ""
+          className={`Match ${win ? 'Match-win' : 'Match-lose'} ${
+            show ? 'expanded' : ''
           }`}
         >
-          <div className="Match-details">
+          <div className='Match-details'>
             <MatchType
               timeAgo={timeDifference(new Date(), gameCreation)}
               win={win}
@@ -83,7 +83,7 @@ export default class Match extends Component {
             />
             <MatchItems items={items} />
             <MatchTeams teams={teams} />
-            <div className="Match-show">
+            <div className='Match-show'>
               {show ? (
                 <FaArrowAltCircleUp onClick={this.show} />
               ) : (

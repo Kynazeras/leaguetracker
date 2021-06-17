@@ -1,13 +1,13 @@
 // Rank Images
-import IRON from "../images/ranked-emblems/Emblem_Iron.png";
-import BRONZE from "../images/ranked-emblems/Emblem_Bronze.png";
-import SILVER from "../images/ranked-emblems/Emblem_Silver.png";
-import GOLD from "../images/ranked-emblems/Emblem_Gold.png";
-import PLATINUM from "../images/ranked-emblems/Emblem_Platinum.png";
-import DIAMOND from "../images/ranked-emblems/Emblem_Diamond.png";
-import MASTER from "../images/ranked-emblems/Emblem_Master.png";
-import GRANDMASTER from "../images/ranked-emblems/Emblem_Grandmaster.png";
-import CHALLENGER from "../images/ranked-emblems/Emblem_Challenger.png";
+import IRON from '../images/ranked-emblems/Emblem_Iron.png';
+import BRONZE from '../images/ranked-emblems/Emblem_Bronze.png';
+import SILVER from '../images/ranked-emblems/Emblem_Silver.png';
+import GOLD from '../images/ranked-emblems/Emblem_Gold.png';
+import PLATINUM from '../images/ranked-emblems/Emblem_Platinum.png';
+import DIAMOND from '../images/ranked-emblems/Emblem_Diamond.png';
+import MASTER from '../images/ranked-emblems/Emblem_Master.png';
+import GRANDMASTER from '../images/ranked-emblems/Emblem_Grandmaster.png';
+import CHALLENGER from '../images/ranked-emblems/Emblem_Challenger.png';
 
 export const timeDifference = (current, previous) => {
   const msPerMinute = 60 * 1000;
@@ -19,17 +19,17 @@ export const timeDifference = (current, previous) => {
   const elapsed = current - previous;
 
   if (elapsed < msPerMinute) {
-    return Math.round(elapsed / 1000) + " seconds ago";
+    return Math.round(elapsed / 1000) + ' seconds ago';
   } else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute) + " minutes ago";
+    return Math.round(elapsed / msPerMinute) + ' minutes ago';
   } else if (elapsed < msPerDay) {
-    return Math.round(elapsed / msPerHour) + " hours ago";
+    return Math.round(elapsed / msPerHour) + ' hours ago';
   } else if (elapsed < msPerMonth) {
-    return Math.round(elapsed / msPerDay) + " days ago";
+    return Math.round(elapsed / msPerDay) + ' days ago';
   } else if (elapsed < msPerYear) {
-    return Math.round(elapsed / msPerMonth) + " months ago";
+    return Math.round(elapsed / msPerMonth) + ' months ago';
   } else {
-    return Math.round(elapsed / msPerYear) + " years ago";
+    return Math.round(elapsed / msPerYear) + ' years ago';
   }
 };
 
@@ -76,17 +76,37 @@ export const getGameTime = (duration) => {
   var secs = ~~duration % 60;
 
   // Output like "1:01" or "4:03:59" or "123:03:59"
-  var ret = "";
+  var ret = '';
 
   if (hrs > 0) {
-    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
   }
 
-  ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-  ret += "" + secs;
+  ret += '' + mins + ':' + (secs < 10 ? '0' : '');
+  ret += '' + secs;
   return ret;
 };
 
 export const numberWithCommas = (num) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export const sortArrayByTimestamp = (arr, timestampField) => {
+  arr.sort(function (x, y) {
+    return x[timestampField] - y[timestampField];
+  });
+};
+
+export const regionOptions = [
+  { value: 'br1', label: 'BR' },
+  { value: 'eun1', label: 'EUN' },
+  { value: 'euw1', label: 'EUW' },
+  { value: 'jp1', label: 'JP' },
+  { value: 'kr', label: 'KR' },
+  { value: 'la1', label: 'LAN' },
+  { value: 'la2', label: 'LAS' },
+  { value: 'na1', label: 'NA' },
+  { value: 'oc1', label: 'OC' },
+  { value: 'tr1', label: 'TR' },
+  { value: 'ru', label: 'RU' },
+];

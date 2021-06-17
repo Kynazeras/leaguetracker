@@ -8,6 +8,12 @@
   padding: 6px 0;
   margin-bottom: 4px;
   border-radius: 4px;
+  font-size: 0.8em;
+}
+
+.MatchExpandSummoner {
+  border: 2px solid var(--blue);
+  padding: 0.5rem;
 }
 
 .MatchExpandSummoner .champ,
@@ -24,4 +30,18 @@
 
 .MatchExpandTeam {
   margin-bottom: 1rem;
+  padding: 0.2rem;
+}
+
+.MatchExpandTeam.win {
+  border: 1px solid rgb(10, 99, 94);
+}
+
+.MatchExpandTeam.lose {
+  border: 1px solid rgb(107, 5, 100);
+}
+
+.MatchExpandSummoner-kda {
+  display: flex;
+  flex-direction: column;
 }
