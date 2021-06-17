@@ -30,6 +30,15 @@
 
 .MatchExpandTeam {
   margin-bottom: 1rem;
+  padding: 0.2rem;
+}
+
+.MatchExpandTeam.win {
+  border: 1px solid rgb(10, 99, 94);
+}
+
+.MatchExpandTeam.lose {
+  border: 1px solid rgb(107, 5, 100);
 }
 
 .MatchExpandSummoner-kda {

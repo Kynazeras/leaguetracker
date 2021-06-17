@@ -55,7 +55,5 @@
   font-weight: bold;
   color: #fff;
   background-color: var(--purple);
-
-  /* border-radius: 20px; */
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.19);
 }

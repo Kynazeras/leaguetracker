@@ -9,9 +9,9 @@ export default class MatchExpand extends Component {
     return (
       <div className={`Match-expand ${win ? 'Match-win' : 'Match-lose'}`}>
         <div className='details'>
-          <hr />
+          {/* <hr /> */}
           <MatchExpandTeam team={teams.blueSide} color='Blue' />
-          <hr />
+          {/* <hr /> */}
           <MatchExpandTeam team={teams.redSide} color='Red' />
         </div>
       </div>
