@@ -5,8 +5,6 @@
   display: flex;
   align-items: center;
   padding: 0 0.5rem;
-  /* -webkit-box-shadow: 5px 5px 15px 5px #000000;
-  box-shadow: 5px 5px 15px 5px #000000; */
 }
 
 .Match.expanded {
@@ -15,12 +13,27 @@
 }
 
 .Match-win {
+  /* background: rgb(176, 239, 235); */
   background: rgb(176, 239, 235);
+  background: linear-gradient(
+    90deg,
+    rgba(176, 239, 235, 1) 0%,
+    rgba(198, 201, 236, 1) 30%
+  );
+
   border: 1px solid rgb(10, 99, 94);
 }
 
 .Match-lose {
+  /* background: rgb(253, 186, 248); */
+
   background: rgb(253, 186, 248);
+  background: linear-gradient(
+    90deg,
+    rgba(253, 186, 248, 1) 0%,
+    rgba(198, 201, 236, 1) 30%
+  );
+
   border: 1px solid rgb(107, 5, 100);
 }
 

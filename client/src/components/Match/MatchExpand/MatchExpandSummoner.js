@@ -9,7 +9,7 @@ import {
   numberWithCommas,
 } from '../../../constants/util-functions';
 
-export default function MatchExpandSummoner({ summoner }) {
+export default function MatchExpandSummoner({ summoner, currentPatch }) {
   const {
     championName,
     summonerName,
@@ -32,7 +32,7 @@ export default function MatchExpandSummoner({ summoner }) {
   return (
     <div className='MatchExpandSummoner'>
       <div className='champ'>
-        <img src={champImg(championName)} alt={championName} />
+        <img src={champImg(championName, currentPatch)} alt={championName} />
         <span>{summonerName}</span>
       </div>
       <div className='MatchExpandSummoner-kda'>
@@ -45,15 +45,28 @@ export default function MatchExpandSummoner({ summoner }) {
       <div>{numberWithCommas(goldEarned)}</div>
       <div>{totalMinionsKilled}</div>
       <div>{wardsPlaced}</div>
-      <div>
-        {items.map((item) => (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {items.map((item, index) => (
           <React.Fragment>
             {item ? (
               <img
-                style={{ width: '1.5rem', height: '1.5rem' }}
-                src={itemImg(item)}
+                style={{
+                  width: '1.5rem',
+                  height: '1.5rem',
+                }}
+                src={itemImg(item, currentPatch)}
+                key={index}
               />
-            ) : null}
+            ) : (
+              <div
+                style={{
+                  width: '1.5rem',
+                  height: '1.5rem',
+                  background: 'rgb(198, 217, 236)',
+                }}
+                key={index}
+              />
+            )}
           </React.Fragment>
         ))}
       </div>

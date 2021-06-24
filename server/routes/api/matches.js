@@ -4,11 +4,10 @@ const router = express.Router();
 const axios = require('axios');
 
 const env = require('dotenv').config();
-// API Strings
-const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
-const matchesV5ApiKeyString = `&api_key=${process.env.RIOT_API_KEY}`;
+// axios config
+const axiosConfig = require('../../utils/axiosConfig');
 
-router.get('/:region/bySummonerId/:puuid/:start', async (req, res) => {
+router.get('/:region/bySummonerId/:puuid', async (req, res) => {
   const { region, puuid, start } = req.params;
   try {
     const summonerMatchDetails = await getSummonerMatchDetails(
@@ -25,26 +24,27 @@ router.get('/:region/bySummonerId/:puuid/:start', async (req, res) => {
       })
       .catch((err) => {
         res.send(err);
+        console.log(err);
       });
   } catch (err) {
-    console.log(err);
     res.status(404).send('Match details cannot be retrieved at this time');
   }
 });
 
 // Functions
-const getSummonerMatchDetails = (region, puuid, start) => {
+const getSummonerMatchDetails = (region, puuid) => {
   const routingRegion = getMatchServer(region);
-  console.log(routingRegion);
   return axios.get(
-    `https://${routingRegion}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=10${matchesV5ApiKeyString}`
+    `https://${routingRegion}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10`,
+    axiosConfig
   );
 };
 
 const getMatchDetails = (region, matchId) => {
   const routingRegion = getMatchServer(region);
   return axios.get(
-    `https://${routingRegion}.api.riotgames.com/lol/match/v5/matches/${matchId}${apiKeyString}`
+    `https://${routingRegion}.api.riotgames.com/lol/match/v5/matches/${matchId}`,
+    axiosConfig
   );
 };
 

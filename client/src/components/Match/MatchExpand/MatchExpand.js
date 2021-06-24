@@ -5,14 +5,20 @@ import MatchExpandTeam from './MatchExpandTeam';
 
 export default class MatchExpand extends Component {
   render() {
-    const { win, teams } = this.props;
+    const { win, teams, currentPatch } = this.props;
     return (
       <div className={`Match-expand ${win ? 'Match-win' : 'Match-lose'}`}>
         <div className='details'>
-          {/* <hr /> */}
-          <MatchExpandTeam team={teams.blueSide} color='Blue' />
-          {/* <hr /> */}
-          <MatchExpandTeam team={teams.redSide} color='Red' />
+          <MatchExpandTeam
+            team={teams.blueSide}
+            color='Blue'
+            currentPatch={currentPatch}
+          />
+          <MatchExpandTeam
+            team={teams.redSide}
+            color='Red'
+            currentPatch={currentPatch}
+          />
         </div>
       </div>
     );

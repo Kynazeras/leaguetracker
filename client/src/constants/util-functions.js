@@ -1,3 +1,6 @@
+// axios
+import axios from 'axios';
+
 // Rank Images
 import IRON from '../images/ranked-emblems/Emblem_Iron.png';
 import BRONZE from '../images/ranked-emblems/Emblem_Bronze.png';
@@ -50,11 +53,20 @@ export const getRankedImg = (tier) => {
 };
 
 // Match info functions
-export const champImg = (champ) =>
-  `https://ddragon.leagueoflegends.com/cdn/11.10.1/img/champion/${champ}.png`;
+export const champImg = (champ, currentPatch) => {
+  return `https://ddragon.leagueoflegends.com/cdn/${currentPatch}/img/champion/${champ}.png`;
+};
 
-export const itemImg = (itemId) =>
-  `http://ddragon.leagueoflegends.com/cdn/11.11.1/img/item/${itemId}.png`;
+export const itemImg = (itemId, currentPatch) =>
+  `http://ddragon.leagueoflegends.com/cdn/${currentPatch}/img/item/${itemId}.png`;
+
+export const getRecentPatch = async () => {
+  const patches = await axios.get(
+    `https://ddragon.leagueoflegends.com/api/versions.json`
+  );
+  const newestPatch = await patches.data[0];
+  return newestPatch;
+};
 
 export const getKDA = (kills, deaths, assists) => {
   let ka = kills + assists;

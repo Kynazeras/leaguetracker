@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 // Components
-import TeamList from "./TeamList";
+import TeamList from './TeamList';
 
-export default function MatchTeams({ teams }) {
+export default function MatchTeams({ teams, currentPatch }) {
   return (
-    <div className="Match-teams">
-      <TeamList side={teams.blueSide} />
-      <TeamList side={teams.redSide} />
+    <div className='Match-teams'>
+      <TeamList side={teams.blueSide} currentPatch={currentPatch} />
+      <TeamList side={teams.redSide} currentPatch={currentPatch} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ body {
   --textColor: #f9d1d1;
   --winBg: rgb(176, 239, 235);
   --loseBg: rgb(253, 186, 248);
-  --pageBackground: rgb(198 217 236);
+  --pageBackground: rgb(198, 217, 236);
   margin: 0;
   /* font-family: 'Raleway', sans-serif; */
   -webkit-font-smoothing: antialiased;
@@ -20,3 +20,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* background: linear-gradient(90deg, rgba(176,239,235,1) 0%, rgba(198,217,236,1) 50%); */
