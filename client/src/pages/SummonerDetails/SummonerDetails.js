@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 // axios
 import axios from 'axios';
 // Components
+import SearchBar from '../../components/SearchBar/SearchBar';
 import SummonerHeader from '../../components/SummonerDetails/SummonerHeader/SummonerHeader';
 import MatchHistory from '../../components/MatchHistory/MatchHistory';
 import Rank from '../../components/SummonerDetails/Rank/Rank';
@@ -11,7 +12,10 @@ import SummonerNotFound from '../../components/SummonerNotFound/SummonerNotFound
 // Css
 import './SummonerDetails.css';
 // Constants
-import { numberWithCommas } from '../../constants/util-functions';
+import {
+  numberWithCommas,
+  getRecentPatch,
+} from '../../constants/util-functions';
 // Error Boundary
 import ErrorBoundary from '../../ErrorBoundary';
 // Spinner
@@ -53,6 +57,7 @@ export default class SummonerDetails extends Component {
       region: '',
       hasMore: true,
       summonerNotFound: false,
+      currentPatch: '',
     };
 
     this.getSummonerDetails = this.getSummonerDetails.bind(this);
@@ -67,10 +72,11 @@ export default class SummonerDetails extends Component {
     this.getSummonerDetails();
   }
 
-  getSummonerDetails() {
+  async getSummonerDetails() {
     const { match } = this.props;
     const summonerName = match.params.summonerName;
     const region = match.params.region;
+    const newestPatch = await getRecentPatch();
     axios
       .get(`/api/summoner/details/${region}/${summonerName}`)
       .then((res) => {
@@ -82,6 +88,7 @@ export default class SummonerDetails extends Component {
             summonerLevel,
             profileIconId,
             region: region,
+            currentPatch: newestPatch,
           },
           () => {
             this.getRankedInfo(region, id);
@@ -91,7 +98,7 @@ export default class SummonerDetails extends Component {
         );
       })
       .catch((err) => {
-        console.log(err.response.status);
+        console.log(err.response.data.message);
         if (err.response.status === 404) {
           this.setState({
             summonerNotFound: true,
@@ -105,7 +112,7 @@ export default class SummonerDetails extends Component {
   getMatchHistory() {
     const { matches, start, puuid, region } = this.state;
     axios
-      .get(`/api/matches/${region}/bySummonerId/${puuid}/${start}`)
+      .get(`/api/matches/${region}/bySummonerId/${puuid}`)
       .then((res) => {
         console.log(res.data);
         this.setState({
@@ -191,6 +198,7 @@ export default class SummonerDetails extends Component {
       error,
       hasMore,
       summonerNotFound,
+      currentPatch,
     } = this.state;
     const summonerName = match.params.summonerName;
 
@@ -202,6 +210,7 @@ export default class SummonerDetails extends Component {
     }
     return (
       <ErrorBoundary>
+        {/* <SearchBar /> */}
         <div className='SummonerDetails'>
           <SummonerHeader
             getProfileIcon={getProfileIcon}
@@ -259,8 +268,9 @@ export default class SummonerDetails extends Component {
                 <MatchHistory
                   matches={matches}
                   puuid={puuid}
-                  scrollLoadMore={this.scrollLoadMore}
-                  hasMore={false}
+                  // scrollLoadMore={this.scrollLoadMore}
+                  // hasMore={false}
+                  currentPatch={currentPatch}
                 />
               </section>
             </div>

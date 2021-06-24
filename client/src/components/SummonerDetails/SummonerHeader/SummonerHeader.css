@@ -1,13 +1,18 @@
 .SummonerHeader {
-  height: 15%;
+  height: 10%;
   display: flex;
   align-items: center;
-  padding-top: 1rem;
+  padding: 1rem 0;
   color: var(--darkblue);
 }
 
 .SummonerHeader .profile-icon {
   position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.SummonerHeader .profile-icon:hover {
+  transform: scale(1.1);
 }
 
 .SummonerHeader .level {

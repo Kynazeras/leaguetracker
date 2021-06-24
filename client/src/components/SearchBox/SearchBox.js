@@ -8,8 +8,14 @@ import './SearchBox.css';
 
 export default class SearchBox extends Component {
   render() {
-    const { summonerName, handleChange, region, options, handleRegionChange } =
-      this.props;
+    const {
+      summonerName,
+      handleChange,
+      region,
+      options,
+      handleRegionChange,
+      handlePressEnter,
+    } = this.props;
     return (
       <div className='Searchbox'>
         <input
@@ -18,6 +24,7 @@ export default class SearchBox extends Component {
           onChange={handleChange}
           placeholder='Type Name here'
           name='summonerName'
+          onKeyDown={handlePressEnter}
         />
         <div className='Searchbox-options'>
           <div className='region'>

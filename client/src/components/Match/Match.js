@@ -44,6 +44,7 @@ export default class Match extends Component {
       deaths,
       assists,
       totalMinionsKilled,
+      neutralMinionsKilled,
       win,
       timePlayed,
       item0,
@@ -54,7 +55,7 @@ export default class Match extends Component {
       item5,
     } = this.props.summonerObj;
     const { show } = this.state;
-    const { gameCreation } = this.props;
+    const { gameCreation, currentPatch } = this.props;
     const items = [item0, item1, item2, item3, item4, item5];
     const teams = getTeams(this.props.participants);
     return (
@@ -71,7 +72,7 @@ export default class Match extends Component {
               gameTime={getGameTime(timePlayed)}
             />
             <Champ
-              imgSrc={champImg(championName)}
+              imgSrc={champImg(championName, currentPatch)}
               championName={championName}
             />
             <MatchKDA
@@ -79,10 +80,10 @@ export default class Match extends Component {
               deaths={deaths}
               assists={assists}
               kda={getKDA(kills, deaths, assists)}
-              totalMinionsKilled={totalMinionsKilled}
+              totalMinionsKilled={totalMinionsKilled + neutralMinionsKilled}
             />
-            <MatchItems items={items} />
-            <MatchTeams teams={teams} />
+            <MatchItems items={items} currentPatch={currentPatch} />
+            <MatchTeams teams={teams} currentPatch={currentPatch} />
             <div className='Match-show'>
               {show ? (
                 <FaArrowAltCircleUp onClick={this.show} />
@@ -92,7 +93,9 @@ export default class Match extends Component {
             </div>
           </div>
         </div>
-        {show ? <MatchExpand win={win} teams={teams} /> : null}
+        {show ? (
+          <MatchExpand win={win} teams={teams} currentPatch={currentPatch} />
+        ) : null}
       </div>
     );
   }

@@ -19,6 +19,7 @@ export default class HomePage extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleRegionChange = this.handleRegionChange.bind(this);
+    this.handlePressEnter = this.handlePressEnter.bind(this);
   }
 
   handleChange(e) {
@@ -26,6 +27,13 @@ export default class HomePage extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handlePressEnter(e) {
+    const { region, summonerName } = this.state;
+    if (e.key === 'Enter') {
+      this.props.history.push(`/${region.value}/summoner/${summonerName}`);
+    }
   }
 
   handleRegionChange(selectedOption) {
@@ -53,6 +61,7 @@ export default class HomePage extends Component {
           summonerName={summonerName}
           region={region}
           handleChange={this.handleChange}
+          handlePressEnter={this.handlePressEnter}
           handleRegionChange={this.handleRegionChange}
           options={regionOptions}
         />

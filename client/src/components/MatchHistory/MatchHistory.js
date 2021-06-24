@@ -12,7 +12,8 @@ const getSummonerObj = (participants, puuid) => {
 
 export default class MatchHistory extends Component {
   render() {
-    const { matches, puuid, scrollLoadMore, hasMore } = this.props;
+    const { matches, puuid, scrollLoadMore, hasMore, currentPatch } =
+      this.props;
     return (
       <div className='MatchHistory'>
         {matches.length > 0 ? (
@@ -26,6 +27,7 @@ export default class MatchHistory extends Component {
               <Match
                 key={match.gameId}
                 summonerObj={getSummonerObj(match.participants, puuid)}
+                currentPatch={currentPatch}
                 {...match}
               />
             ))}

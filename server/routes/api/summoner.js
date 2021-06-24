@@ -4,7 +4,8 @@ const router = express.Router();
 const axios = require('axios');
 
 const env = require('dotenv').config();
-const apiKeyString = `?api_key=${process.env.RIOT_API_KEY}`;
+// axios config
+const axiosConfig = require('../../utils/axiosConfig');
 
 router.get('/details/:region/:summonerName', async (req, res) => {
   const { region, summonerName } = req.params;
@@ -12,7 +13,11 @@ router.get('/details/:region/:summonerName', async (req, res) => {
     const summonerDetails = await getSummonerDetails(region, summonerName);
     res.send(summonerDetails.data);
   } catch (err) {
-    res.status(404).send({ message: 'Summoner Not Found' });
+    if (err.response.data.status.status_code === 403) {
+      res.status(403).send({ message: 'Incorrect API Key' });
+    } else {
+      res.status(404).send({ message: 'Summoner Not Found' });
+    }
   }
 });
 
@@ -30,19 +35,22 @@ router.get('/mastery/:region/:summonerId', async (req, res) => {
 
 const getSummonerDetails = (region, summonerName) => {
   return axios.get(
-    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}${apiKeyString}`
+    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`,
+    axiosConfig
   );
 };
 
 const getSummonerRank = (region, summonerId) => {
   return axios.get(
-    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}${apiKeyString}`
+    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}`,
+    axiosConfig
   );
 };
 
 const getSummonerMastery = (region, summonerId) => {
   return axios.get(
-    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/${apiKeyString}`
+    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}`,
+    axiosConfig
   );
 };
 
